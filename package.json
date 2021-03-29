@@ -2,14 +2,16 @@
   "name": "pochlib",
   "version": "1.0.0",
   "main": "index.js",
-  "dependencies": {
-    "webpack-cli": "^4.5.0",
-    "webpack": "^5.28.0"
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.6.0"
   },
-  "devDependencies": {},
   "scripts": {
-   "sass": "sass --watch ./sass/style.scss:./public/css/style.css"
-     },
+    "sass": "sass --watch ./sass/style.scss:./public/css/style.css",
+    "test": "....",
+    "build": "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shumine620/Poch-Lib.git"

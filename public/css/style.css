@@ -4,13 +4,48 @@ body {
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size: 1em;
   padding: 20px;
-  background-color: #b7ffc8;
+  background-color: rgba(183, 255, 150, 0.25);
 }
 
 img {
   display: center;
   float: align;
-  width: 400px;
+  width: 150px;
+  border: 2mm ridge rgba(170, 150, 220, 0.6);
+}
+
+h1 {
+  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 2em;
+  padding: 20px;
+  margin: 2em;
+  background-color: rgba(183, 255, 200, 0.25);
+  border: 2mm ridge rgba(170, 150, 220, 0.6);
+}
+
+.btn {
+  background-color: #001534;
+  color: #fff;
+  padding: 1.5rem;
+}
+
+.btn-green {
+  background-color: #185730;
+}
+
+.btn-rounded {
+  border-radius: 25px;
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
 }
 
 /*# sourceMappingURL=style.css.map */
