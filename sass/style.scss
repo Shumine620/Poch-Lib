@@ -3,7 +3,7 @@ body {
   margin: auto;
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size:1em;
-  padding: 20px;
+  padding: 10px;
   background-color : rgb(183, 410, 150, 0.25);
 }
 
@@ -24,19 +24,36 @@ background-color : rgb(183, 410, 200, 0.25) ;
 border: 2mm ridge rgba(170, 150, 220, .6);
 }
 
+h2{
+  text-align: center;
+  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
+  }
+
  hr{
 margin-top: 15px;
 margin-bottom: 20px;
   }
-  h2{
-  text-align: center;
-  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
-  }
-  .button {
+
+  button{
     font-size: 1em;
-    background-color: #46b36f;
+    background-color: #94e0b1;
     color: #fff;
-    padding: 1.5rem;
+    padding: 1rem;
     border: 1.8mm ridge rgba(170, 150, 220, 0.6);
+    margin-left: 1em;
+    margin-top: 1em;
+    ; 
   }
-  
+
+  input{
+     padding: 0.5rem;
+    border: 1.8mm;
+    margin-left: 1em;
+    margin-top: 1em;
+   display: inline-block; 
+  }
+
+  cancelButton{
+    background-color: #e4454d;
+   
+  }

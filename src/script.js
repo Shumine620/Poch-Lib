@@ -1,40 +1,76 @@
 //Au Chargement de la page - Init page
 //Create the "Ajouter un livre" button
 
-function init(){
-  const div_myBooks = document.createElement('div');
+
+const div_myBooks = document.createElement('div');
   div_myBooks.id = 'myBooks';
-  div_myBooks.innerHTML = "<button> Ajouter un livre </button>";
-  document.getElementById('myBooks').appendChild(div_myBooks);
-      }
-  window.addEventListener('DOMContentLoaded',init);
+  myBooks.appendChild(div_myBooks);
+
+function init(){
   
+  const addBookButton = document.createElement("button");
+  addBookButtonName= "addBookButton";
+  addBookButton.id = "addBookButton";
+  addBookButton.innerHTML= "Ajouter un livre";
+  div_myBooks.appendChild(addBookButton);
+  
+      }
+   window.addEventListener('DOMContentLoaded',init);
+  
+const addBookButton= document.getElementById("addBookButton");
+
  //Au clic Ajouter un livre
  //Title of the book & Author fields
- myBooks.addEventListener('click',researchFields);
+div_myBooks.addEventListener('click',researchFields);
+
+ const div_researchFields = document.createElement('div');
+ document.body.appendChild(div_researchFields);
 
  function researchFields(){
   
    const inputTitleField = document.createElement("input");
   inputTitleField.setAttribute("type", "search");
   inputTitleField.setAttribute("value", "Titre du livre");
- document.body.appendChild(inputTitleField);
+  div_researchFields.appendChild(inputTitleField);
 
  const inputAuthorField = document.createElement("input");
  inputAuthorField.setAttribute("type", "search");
  inputAuthorField.setAttribute("value", "Auteur");
- document.body.appendChild(inputAuthorField);
+ div_researchFields.appendChild(inputAuthorField);
 
- const searchButton = document.createElement("button");
-  searchButton.id = "search-button";
+ const searchButton = document.createElement("div");
+  searchButton.id = 'searchButton';
   searchButton.className = 'button';
-  searchButton.innerHTML = "Rechercher";
-  document.body.appendChild(searchButton);
+  searchButton.innerHTML = "<button> Rechercher </button>";
+  div_researchFields.appendChild(searchButton);
 
-  const cancelButton = document.createElement("button");
-  cancelButton.id = "cancel-button";
+  const cancelButton = document.createElement("div");
+  cancelButton.id = 'cancelButton';
   cancelButton.className = 'button';
-  cancelButton.innerHTML = "Annuler";
-  document.body.appendChild(cancelButton);
- }
+  cancelButton.innerHTML = "<button> Annuler </button>";
+  div_researchFields.appendChild(cancelButton);
+ 
+}
+
+//Cancel button clear the input fields
+
+const cancelButton = document.getElementById("cancelButton");
+cancelButton.addEventListener('click',clearInputFields);
+ 
+function clearInputFields(){
+   document.getElementById("div_researchFields").style.display = "none";
+inputTitle.value ="";
+    
+}
+
+
+//Create the Pochlist Div
+//La pochList Div disparait???
+const pochListDiv = document.createElement('div');
+pochListDiv.id = "MaPochList";
+  div_myBooks.appendChild(pochListDiv);
+  
+  //div_myBooks.before(pochListDiv);
+const hr = document.querySelector('hr');
+div_myBooks.insertBefore(hr,pochListDiv);
 
