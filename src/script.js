@@ -95,19 +95,25 @@ $("pochListDiv").before(div_researchButtons);
 
 
 // Searching book
-//onclick searchButton
+//onclick searchButton??
 function searchBook() {
 
+searchButton.addEventListener('submit', ($event)=> {
+  $event.preventDefault();
 
-  const request = new XMLHttpRequest();
+  let apiRequest = new XMLHttpRequest();
   var title = document.getElementById('inputTitleFied').value;
  var author = document.getElementById('inputAuthorField').value;
 
   
-  if (inputAuthorField.value() == " " || inputTitleField.value() == " ") {
-    alert("Veuillez entrer le nom de l'auteur ou le titre du livre");
-  };
-  request.onreadystatechange = function() {
+  if (inputAuthorField.value() == " ")  {
+    alert("Veuillez renseigner le nom de l'auteur")
+  }
+  if(inputTitleField.value() == " "){
+    alert("Veuillez renseigner le titre du livre")
+    };
+  apiRequest.onreadystatechange = function() {
+
       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
 
           let response = JSON.parse(this.response);
@@ -121,6 +127,11 @@ function searchBook() {
           }
       }
   }
-  request.open("GET", "https://www.googleapis.com/books/v1/volumes?q=:" + author + title);
-  request.send();
+  apiRequest.open("GET", "https://www.googleapis.com/books/v1/volumes?q=:" + author + title);
+  apiRequest.send();
+});
 }
+
+//Create pochDiv Result
+
+//Display book results
