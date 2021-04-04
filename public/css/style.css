@@ -47,12 +47,13 @@ button {
 input {
   padding: 0.5rem;
   border: 1.8mm;
-  margin-left: 1em;
+  margin-left: 2em;
   margin-top: 1em;
+  margin-bottom: 1em;
   display: inline-block;
 }
 
-.cancelButton {
+#cancelButton {
   background-color: #e4454d;
 }
 
