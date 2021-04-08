@@ -88,26 +88,20 @@ function researchFields(){
    
 function searchBook(){
    
-    var title = document.getElementById('inputTitleFied').value;
+    var title = document.getElementById('inputTitleField').value;
     var author = document.getElementById('inputAuthorField').value;
-     
-   
+        
        //Alert message if the author and title fields are empty
       
-      if (  title == ''){
+    if (title == ''){
         createErrorInput('title', 'Merci de renseigner le champ.');
         return;
-    }
+        }
     if (author == ''){
         createErrorInput('author', 'Merci de renseigner le champ.');
         return;
-
-} /*else {
-    searchBook(document.getElementById("title").value, document.getElementById("author").value);
-  };*/
-
-researchFields('searchButton');
-createPochListDiv();
+        } 
+//createPochListDiv();
 
 const  apiRequest = new XMLHttpRequest();
 apiRequest.onreadystatechange = function() {
@@ -129,9 +123,9 @@ apiRequest.send();
 }
 
 
-//Create results fields
-//fonction d'affichage des listes de livres prend en paramètre une liste de livres et un type d'affichage en fonction si celui-ci est une recherche ou une liste d'enregistrements
-function displaybook(results, display) {
+//Create results fields to display books
+
+function displayBook(results, display) {
 
     const divBookList = document.createElement("div");
     divBookList.setAttribute("class", "bookList");
@@ -143,7 +137,7 @@ function displaybook(results, display) {
         divBookList.appendChild(noBookFound);
     } else {
 
-        results.items.map(item => {// parcours de la liste de livres
+        results.items.map(item => {
             const resultsBookList = document.createElement("div");
             resultsBookList.setAttribute("class", "book");
 
