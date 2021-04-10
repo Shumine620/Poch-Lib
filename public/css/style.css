@@ -57,4 +57,24 @@ input {
   background-color: #e4454d;
 }
 
+#inputTitleField {
+  display: inline;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+  flex-direction: row;
+}
+
+#inputAuthorField {
+  display: inline;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+  flex-direction: row;
+}
+
+myResults {
+  text-align: left;
+  border: #130d0d;
+  font-size: 2em;
+}
+
 /*# sourceMappingURL=style.css.map */

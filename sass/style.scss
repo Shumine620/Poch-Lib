@@ -58,3 +58,20 @@ margin-bottom: 20px;
     background-color: #e4454d;
    
   }
+  #inputTitleField{
+    display: inline;
+    justify-content: space-evenly;
+    flex-flow: wrap;
+        flex-direction: row;
+  }
+  #inputAuthorField{
+    display: inline; 
+    justify-content: space-evenly;
+    flex-flow: wrap;
+        flex-direction: row;
+  }
+  myResults{
+    text-align: left;
+    border: rgb(19, 13, 13);
+    font-size: 2em;
+  }
