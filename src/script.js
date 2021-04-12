@@ -18,6 +18,7 @@ function init(){
     
         $("hr").before(addBookButton);
         addBookButton.addEventListener('click',researchFields); 
+       
 }
 
  //Title of the book & Author fields + Search and cancel buttons
@@ -59,9 +60,16 @@ function researchFields(){
     $("hr").before(div_researchFields);
    
     cancelButton.addEventListener('click',clearInputFields,resultField);
-   searchButton.addEventListener('click',resultField);
-  searchButton.addEventListener('click', searchBook);
-         }
+    searchButton.addEventListener('click',resultField);
+    searchButton.addEventListener('click', searchBook);
+
+    inputTitleField.addEventListener("change", (event) => {
+        title = event.target.value;});
+    inputAuthorField.addEventListener("change", (event) => {
+        author = event.target.value;
+          });
+        }
+
 
 function resultField(){
   
@@ -90,126 +98,161 @@ function clearInputFields(){
     document.querySelector("#myBooks > div:nth-child(4)").remove(); 
     document.getElementById('resultField');
     document.querySelector("#resultDiv").remove();
-     document.querySelector("#noBookFound").remove();
-     document.querySelector("#myResults").remove();
+    document.querySelector("#noBookFound").remove();
+    //document.querySelector("#myResults").remove();
     document.getElementById("content").style.display="block";
 }
-async function requestGet(url) {
-    const response = await fetch(url);
-    if (response.ok) {
-        return response.json();
-    } else {
-        console.error("Ereur : " + response.status); 
-    }
+function noBookFound(){
+    const noBookFound = document.createElement("p");
+    noBookFound.id= "noBookFound";
+    noBookFound.setAttribute("class", "noBookFound");
+    noBookFound.innerHTML = "Aucun livre n’a été trouvé";
+    document.querySelector("#myResults").appendChild(noBookFound);
+    document.querySelector("#content").before(noBookFound);  
 }
 
-function searchBook(){
-
-    const apiRequest = new XMLHttpRequest();
-    const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
-
+ function searchBook(){
+    
     var title = document.getElementById('inputTitleField').value;
     var author = document.getElementById('inputAuthorField').value;
     
-    if(title == "" || author == ""){
-		let error = document.getElementById("error");
-		error.innerHTML = "Veuillez renseigner les champs correspondants')";
-		return;
-	}
-
-    apiRequest.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-
-            let results = JSON.parse(this.response);
-
-            if (results.items === undefined) {
-                const noBookFound = document.createElement("p");
-                noBookFound.id= "noBookFound";
-                noBookFound.setAttribute("class", "noBookFound");
-                noBookFound.innerHTML = "Aucun livre n’a été trouvé";
-                document.querySelector("#myResults").appendChild(noBookFound);
-                document.querySelector("#content").before(noBookFound);
-            } else {
-                response.items.map(item => {
-                    displayBook(item.volumeInfo, item.id);
-                })
+    let emptyFieldAlert = document.createElement("div");
+    document.querySelector("#myBooks > div:nth-child(4)").appendChild(emptyFieldAlert);
+   if (title == ''|| author == '') {
+        const emptyFieldAlertT = document.createElement("h3");
+        emptyFieldAlert.id = "emptyFieldAlert";
+        emptyFieldAlert.className = 'h3';
+        emptyFieldAlert.innerHTML = "Merci de renseigner les champs de recherche.";
+        emptyFieldAlert.style.color = "red";
+        emptyFieldAlert.appendChild(emptyFieldAlertT);
             }
-        }
+
+           
+    var xhr = new  XMLHttpRequest();
+    const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
+
+   let apiRequest =  "https://www.googleapis.com/books/v1/volumes?q=:" + author + title + apiK;
+  
+    xhr.open('GET', apiRequest, true);
+    xhr.send();
+
+    xhr.addEventListener('onreadystatechange', function() {// property defines a function to be executed when the readyState changes
+        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {//Holds and return the status of the XMLHttpRequest
+           
+            let results = JSON.parse(xhr.responseText);//Returns the response data as a string
+
+                if(results.bookFounds){
+                
+                for (var i=0; i<results.items.length; i++){       
+                displayBook(results.items[i], false);    
+                }
+
+             } else {
+                 noBookFound();
+             }
+            }                   
+    }); 
+   }
+
+        
+//Function to create resultblock
+function displayBook(){
+
+    let resultMap = new Map();
+    if(results && resultMap.get(book.id) == null){
+        resultMap.set(book.id, results);
     }
-    apiRequest.open("GET", "https://www.googleapis.com/books/v1/volumes?q=:" +"inauthor:"+ author + title + apiK);
-apiRequest.send();
-}
 
-function displayBook(results, display){
-    const divBookList = document.createElement("div");
-    divBookList.setAttribute("class", "bookList");
-    document.querySelector("#myResults").appendChild(divBookList);
+    const bookmarkIcon = "./logo/boomarks/bookmark-solid.svg";
+    const reader = "./logo/boomarks/book-reader-solid.svg";
+    const bin = "./logo/boomarks/bookmark-solid.svg";
 
-    results.items.map(item => {
     const resultsBookList = document.createElement("div");
-     resultsBookList.setAttribute("class", "book");
+    resultsBookList.setAttribute("class", "bookList");
     resultsBookList.appendChild(divBookList);
 
-            switch (display) {
-                case "0":
-                   const bookmark = document.createElement("i");
-                    bookmark.setAttribute("class", "fas fa-bookmark")
-                    break;
-                case "1":
-                    bookmark = document.createElement("i");
-                    bookmark.setAttribute("class", "fas fa-dumpster");
-                    break;
-                default:
-                    console.log("Erreur d'affichage");
-                    break;
-            }
-            resultsBookList.appendChild(bookmark); 
+    const divBookList = resultsBookList.appendChild(document.createElement("div"));
+    divBookList.setAttribute("class", "book");
 
-           const bookId = document.createElement("p");
-            bookId.setAttribute("class", "idbook");
-            bookId.innerHTML = "ID: " + item.id;
-            resultsBookList.appendChild(bookId);
+    const bookId = document.createElement("p");
+    bookId.setAttribute("class", "idbook");
+    bookId.innerHTML = "ID: " + book.volumeInfo.industryIdentifiers[0].identifier;
+    divContent.innerHTML = '<div data-bookid="' + book.id + '" id="' + book.id + '" src="./logo/boomarks/bookmark-solid.svg"></div>';
+    resultsBookList.appendChild(bookId);
 
-            const bookTitle = document.createElement("p");
-            bookTitle.setAttribute("class", "titlebook");
-            bookTitle.innerHTML = "Titre: " + item.volumeInfo && item.volumeInfo.title ? item.volumeInfo.title : '';
-            resultsBookList.appendChild(bookTitle);
+    const bookTitle = divBookList.appendChild(document.createElement("p"));
+        bookTitle.setAttribute("class", "bookTitle");
+        bookTitle.innerHTML = "Titre: " + book.volumeInfo.title;
+        bookTitle.innerHTML ='<div '
+        resultsBookList.appendChild(bookTitle);
 
-            const bookAuthor = document.createElement("p");
-            bookAuthor.setAttribute("class", "authorbook");
-            bookAuthor.innerHTML = "Auteur: " + item["volumeInfo"].author;
-            resultsBookList.appendChild(bookAuthor);
+    const bookAuthor = resultsBookList.appendChild(document.createElement("p"));
+        bookAuthor.setAttribute("class", "authorBook");
+        bookAuthor.textContent = "Auteur: " + book.volumeInfo.authors[0];
+        resultsBookList.appendChild(bookAuthor);
 
-            //Checking description
-            const description = document.createElement("p");
-            description.setAttribute("class", "bookDescription");
-            description.setAttribute("maxlength", "200");       
-    if (response.volumeInfo.description == undefined) {
-        description.textContent = "Description: Information manquante";
-    } else {
+   
+    const icon = divBookList.appendChild(document.createElement("img"));
+    icon.setAttribute("class", "icons");
+    icon.setAttribute("src", icon);
+    
+    if(icon == bookmarkIcon) {
+      //Add to my poch'list
+      icon.addEventListener("click", (event) => {
+        let inPochList = false;
+       
+        for(let i=0; i<sessionStorage.length; i++){
+          if(book.volumeInfo.industryIdentifiers[0].identifier == sessionStorage.key(i)){
+            inPochList = true;
+          }
+        };
+       //Alert for double register
+        if(inPochList) {
+          alert("Vous ne pouvez ajouter deux fois le même livre");
+        } else {
+          const listToDisplay = displayBook(book, bin);
+          const  listToDisplay_JSON = JSON.stringify(response);
+          sessionStorage.setItem(book.volumeInfo.industryIdentifiers[0].identifier, resultBookList_JSON);
+          resultsBookList.appendChild(listToDisplay);
+        }
+      });
+    } else if(icon == bin) {
+     
+      icon.addEventListener("click", function() {
+
+        sessionStorage.removeItem(bookId);
+        document.getElementById("savedResult").remove();
+              })
+    }
+   
+    //Checking description
+    const description = document.createElement("p");
+    description.setAttribute("class", "bookDescription");
+    description.setAttribute("maxlength", "200");
+       if(response.volumeInfo.description == undefined) {
+      description.textContent = "Description: Information manquante";
+        } else {
       description.textContent = "Description: " + response.volumeInfo.description.substr(0, 200) + "...";
     }
     resultsBookList.appendChild(description);
-    
 
     //Checking image
-            if (item["volumeInfo"].imageLinks != undefined) {
-                const image = document.createElement("img");
-                image.setAttribute("class", "image");
-                image.setAttribute("src", item["volumeInfo"].imageLinks.smallThumbnail);
 
-            } else {
-                const image = document.createElement("img");
-                image.setAttribute("class", "image");
-                image.setAttribute("src", "logo/unavailable.png");
-            }
-            const div_Image = document.createElement("div");
-            div_Image.appendChild(image);
-            resultsBookList.appendChild(div_Image);
+    const div_Image = document.createElement("div");
+    div_Image.appendChild(image);
+    resultsBookList.appendChild(div_Image);
 
-            divBookList.appendChild(resultsBookList);
-    })
+    const image = resultsBookList.appendChild(document.createElement("img"));
+    image.setAttribute("class", "image");
+        if(response.volumeInfo.imageLinks == undefined) {
+      image.setAttribute("src", "logo/unavailable.png");
+    } else {
+      image.setAttribute("src", response.volumeInfo.imageLinks.thumbnail);
+    }
+               divBookList.appendChild(resultsBookList);
+    return resultsBookList;
 }
+
 //<i class="fas fa-book-reader"></i>*/
 
  window.addEventListener('DOMContentLoaded', init);

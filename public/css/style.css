@@ -42,39 +42,33 @@ button {
   border: 1.8mm ridge rgba(170, 150, 220, 0.6);
   margin-left: 1em;
   margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 input {
-  padding: 0.5rem;
-  border: 1.8mm;
-  margin-left: 2em;
+  margin-left: 1em;
   margin-top: 1em;
-  margin-bottom: 1em;
-  display: inline-block;
+  margin-right: 1.5em;
+  margin-bottom: 2em;
+  display: inline;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+  width: 20em;
+  height: 3em;
+  border-width: 0.2em;
+  border-color: black;
+  size: 0.8em;
 }
 
 #cancelButton {
   background-color: #e4454d;
 }
 
-#inputTitleField {
-  display: inline;
-  justify-content: space-evenly;
-  flex-flow: wrap;
-  flex-direction: row;
-}
-
-#inputAuthorField {
-  display: inline;
-  justify-content: space-evenly;
-  flex-flow: wrap;
-  flex-direction: row;
-}
-
 myResults {
   text-align: left;
   border: #130d0d;
   font-size: 2em;
+  margin-top: 2em;
 }
 
 /*# sourceMappingURL=style.css.map */
