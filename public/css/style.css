@@ -4,7 +4,7 @@ body {
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size: 1em;
   padding: 10px;
-  background-color: rgba(183, 255, 150, 0.25);
+  background-color: rgba(185, 255, 180, 0.25);
 }
 
 img {
@@ -42,14 +42,12 @@ button {
   border: 1.8mm ridge rgba(170, 150, 220, 0.6);
   margin-left: 1em;
   margin-top: 1em;
-  margin-bottom: 2em;
 }
 
 input {
   margin-left: 1em;
   margin-top: 1em;
   margin-right: 1.5em;
-  margin-bottom: 2em;
   display: inline;
   justify-content: space-evenly;
   flex-flow: wrap;
@@ -68,7 +66,14 @@ myResults {
   text-align: left;
   border: #130d0d;
   font-size: 2em;
-  margin-top: 2em;
+}
+
+#myResults > div.\#myResults.\>.div\:nth-child\(1\) {
+  text-align: left;
+}
+
+#\[object\ HTMLButtonElement\] {
+  align-items: right;
 }
 
 /*# sourceMappingURL=style.css.map */

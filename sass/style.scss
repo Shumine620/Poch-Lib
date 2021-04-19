@@ -4,7 +4,7 @@ body {
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size:1em;
   padding: 10px;
-  background-color : rgb(183, 410, 150, 0.25);
+  background-color : rgba(185, 510, 180, 0.25);
 }
 
 img {
@@ -20,7 +20,7 @@ text-align: center;
 font-size:2em;
 padding: 20px;
 margin : 2em;
-background-color : rgb(183, 410, 200, 0.25) ;
+background-color : rgba(183, 410, 200, 0.25) ;
 border: 2mm ridge rgba(170, 150, 220, .6);
 }
 
@@ -42,6 +42,7 @@ margin-bottom: 20px;
     border: 1.8mm ridge rgba(170, 150, 220, 0.6);
     margin-left: 1em;
     margin-top: 1em;
+    
     ; 
   }
 
@@ -69,4 +70,10 @@ margin-bottom: 20px;
     text-align: left;
     border: rgb(19, 13, 13);
     font-size: 2em;
+  }
+  #myResults > div.\#myResults.\>.div\:nth-child\(1\){
+    text-align: left;
+  }
+  #\[object\ HTMLButtonElement\]{
+    align-items: right;
   }
