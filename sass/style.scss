@@ -1,19 +1,21 @@
 body {
-  text-align: center;
+  text-align: left;
   margin: auto;
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size:1em;
-  padding: 10px;
-  background-color : rgba(185, 510, 180, 0.25);
+    background-color :white;
+}
+#logo {
+  size: 1em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position:center;
+  max-width: 200px;
+  max-height: 200px;
+border: 1.5mm ridge rgba(170, 150, 220, 0.6);
 }
 
-img {
-display: center;
-float: align;
-width: 150px;
-border: 2mm ridge rgba(170, 150, 220, 0.6);
-
-}
 h1{
 font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
 text-align: center;
@@ -34,46 +36,83 @@ margin-top: 15px;
 margin-bottom: 20px;
   }
 
-  button{
-    font-size: 1em;
-    background-color: #94e0b1;
-    color: #fff;
-    padding: 1rem;
-    border: 1.8mm ridge rgba(170, 150, 220, 0.6);
-    margin-left: 1em;
-    margin-top: 1em;
-    
-    ; 
+ button{ background-color: rgb(59, 190, 169);
+  color: white;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  width: 180px;
+    height: 60px;
+  font-size: 20px;
   }
+  #addBookButton{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 
-  input{
-    margin-left: 1em;
-    margin-top: 1em;
-    margin-right:1.5em;
-    display: inline;
-    justify-content: space-evenly;
-    flex-flow: wrap;
-    width: 20em;
-    height: 3em;
-    border-width: 0.2em;
-    border-color: black;
-    size: 0.8em; 
   }
-
-  #cancelButton{
-    background-color: #e4454d;
+  #searchButton {
+    color:white;
+    border: rgb(205, 165, 241);
+    margin-top: 20px;
    
-  }
+}
+
+#cancelButton {
+    color:white;
+    font-size: 20px;
+   
+    display: inline-block;
+    margin-top: 20px;
+     background-color: rgb(247, 74, 74);
+}
+#\[object\ HTMLButtonElement\]{
+  align-content : right;
+}
+
+      label {
+          width: 100%;
+          margin-top: 20px;
+          display: inline-block;
+          text-align: left;
+font-size: 30px;
+          input {
+              display: block;
+              flex-direction: row;
+              width: 100%;
+          }
+         
+      } 
+    input{
+      display: block;
+      flex-direction: row;
+      width: 100%;
+      height: 50px;
+    }
   
-  
-  myResults{
-    text-align: left;
-    border: rgb(19, 13, 13);
+  #myResults{
+    margin: -3em 0 0 -3em;
+    border: thin solid #999;
+     padding: 1.5em;
+     text-align: left;
+   
+    border-radius: rgb(19, 13, 13);
     font-size: 2em;
+    float:left;
+    border:solid 2px black;
+    border-radius: 17px;
+   
+    height:300pt;
+    margin: 5px;
+    text-align: justify;
+    overflow: auto;
+    font: size 16px; ;
   }
-  #myResults > div.\#myResults.\>.div\:nth-child\(1\){
-    text-align: left;
-  }
-  #\[object\ HTMLButtonElement\]{
-    align-items: right;
+  
+ 
+ #displaycard{
+    border-radius: black;
+    background: black;
+    border: solid ;
   }

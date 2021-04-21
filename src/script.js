@@ -1,7 +1,6 @@
 //Au Chargement de la page - Init page
 //Create the "Ajouter un livre" button
 
-
 function init(){
   const div_myBooks = document.createElement('div');
   div_myBooks.id = 'myBooks';
@@ -17,36 +16,54 @@ function init(){
       div_myBooks.appendChild(addBookButton);
   
       $("hr").before(addBookButton);
-      addBookButton.addEventListener('click',researchFields); 
-     
+      addBookButton.addEventListener('click',researchFields);   
 }
+
 
 //Title of the book & Author fields + Search and cancel buttons
 function researchFields(){
 
   const div_researchFields = document.createElement('div');
  document.body.appendChild(div_researchFields);
- 
+
+ const titre =document.createElement("label")
+titre.id="titre";
+titre.setAttribute("for", "inputTitleField");
+titre.textContent = "Titre du Livre";
+
+linebreak = document.createElement("br");
+titre.appendChild(linebreak);
+
   const inputTitleField = document.createElement("input");
   inputTitleField.id ="inputTitleField";
   inputTitleField.setAttribute("type", "search");
-  inputTitleField.setAttribute("value", "Titre du livre");
-  div_researchFields.appendChild(inputTitleField);
 
+  div_researchFields.appendChild(inputTitleField);
+ 
+  $("#inputTitleField").before(titre);
 
   const brline = document.createElement('br');
   div_researchFields.appendChild(brline);
   brline.id="breakline";
 
+  const auteur =document.createElement("label")
+  auteur.id="auteur";
+  auteur.setAttribute("for", "authorInputField");
+  auteur.textContent = "Auteur";
+  
+  linebreak2 = document.createElement("br");
+  auteur.appendChild(linebreak2);
+
  const inputAuthorField = document.createElement("input");
  inputAuthorField.id="inputAuthorField";
  inputAuthorField.setAttribute("type", "search");
- inputAuthorField.setAttribute("value", "Auteur");
+
  div_researchFields.appendChild(inputAuthorField);
  inputAuthorField.style.display = 'inline-block';
- 
 
- const div_researchButtons = document.createElement('div');
+ $("#inputAuthorField").before(auteur);
+ 
+const div_researchButtons = document.createElement('div');
  div_researchFields.appendChild(div_researchButtons);
 
  const searchButton = document.createElement("button");
@@ -54,33 +71,35 @@ function researchFields(){
   searchButton.className = 'button';
   searchButton.innerHTML = "Rechercher ";
   div_researchButtons.appendChild(searchButton);
-  searchButton.style.display = 'inline-block';
+ 
    
+  linebreak3 = document.createElement("br");
+  
   const cancelButton = document.createElement("button");
    cancelButton.id = 'cancelButton';
   cancelButton.className = 'button';
   cancelButton.innerHTML = "Annuler ";
   div_researchButtons.appendChild(cancelButton);
- cancelButton.style.display = 'inline-block';
+ 
+  cancelButton.before(linebreak3);
 
   $("hr").before(div_researchFields);
  
-  cancelButton.addEventListener('click',clearInputFields,resultField);
+ cancelButton.addEventListener('click',clearInputFields,resultField);
   searchButton.addEventListener('click',resultField);
   searchButton.addEventListener('click',searchBook);
   searchButton.addEventListener('submit',searchBook);
-
 
   inputTitleField.addEventListener('submit', (event) => {
       title = event.target.value;});
   inputAuthorField.addEventListener('submit', (event) => {
       author = event.target.value;
         });
+        
       }
-      
+     
 function resultField(){
-
-        const pochListDiv = document.getElementById("content");
+  const pochListDiv = document.getElementById("content");
          const resultDiv = document.createElement('div');
          resultDiv.id = "resultDiv";
          document.body.appendChild(resultDiv);
@@ -100,9 +119,9 @@ function resultField(){
          const brline2 = document.createElement('br');
           bookResultDiv.appendChild(brline2);
           brline2.id="breakline2";
-         
- 
-        }
+     
+
+}      
 
 //Cancel button clear the input fields
 function clearInputFields(){
@@ -112,7 +131,6 @@ function clearInputFields(){
   document.getElementById('resultField');
   document.querySelector("#resultDiv").remove();
   document.querySelector("#noBookFound").remove();
-  //document.querySelector("#myResults").remove();
   document.getElementById("content").style.display="block";
 }
 function noBookFound(){
@@ -125,7 +143,6 @@ function noBookFound(){
 }
 
 function searchBook(){
-
   var title = document.getElementById('inputTitleField').value;
   var author = document.getElementById('inputAuthorField').value;
   
@@ -171,33 +188,38 @@ function searchBook(){
   }
 
  }  
-
+ 
 
 function displayBook(book, bookmarkClass){
 
+const myResults =document.getElementById("myResults");
+myResults.style.display = "flex";
   
-  const divBookList= document.createElement('div');
- (document.getElementById('myResults')).appendChild(divBookList); 
-  let bookmarkLogo = document.createElement("button");
+const displayCard = document.createElement("div");
+displayCard.className= "dispayCard";
+myResults.appendChild(displayCard)
+
+ let bookmarkLogo = document.createElement("button");
   bookmarkLogo.className= "fas fa-bookmark";
  bookmarkLogo.id = bookmarkLogo;
- divBookList.appendChild(bookmarkLogo);
+ displayCard.appendChild(bookmarkLogo);
 
-  bookTitle= $("bookTitle" ).add( "<p> Titre : " + book.volumeInfo.title + "id=title.id"+ "</p>" ).appendTo( "#myResults"); 
+  bookTitle= $("bookTitle" ).add( "<p> Titre : " + book.volumeInfo.title + "</p>" ).appendTo( "#displayCard"); 
  
   let bookId = document.createElement("p");
   bookId.setAttribute("class", "bookId");
   bookId.setAttribute("data", book.id );
   bookId.innerHTML = "ID: " + book.id;
-  divBookList.appendChild(bookId);
+  displayCard.appendChild(bookId);
 
-  bookAuthor= $("bookAuthor" ).add( "<p> Auteur : " + book.volumeInfo.authors[0] + "</p>" ).appendTo("#myResults");
+  bookAuthor= $("bookAuthor" ).add( "<p> Auteur : " + book.volumeInfo.authors[0] + "</p>" ).appendTo("#displayCard");
  
 //Checking description
-let description = document.querySelector("#myResults").appendChild(document.createElement("p"));
+let description = document.createElement("p");
 description.setAttribute("class", "description");
 description.setAttribute("maxlength", "200");
 description.id = description;
+displayCard.appendChild(description);
 
 if(book.volumeInfo.description == undefined) {
  description.innerHTML = "Description: Information manquante";
@@ -206,7 +228,9 @@ if(book.volumeInfo.description == undefined) {
 }
 description.setAttribute("data",book.volumeInfo.description)
 //Checking image
-let bookImage  =document.querySelector("#myResults").appendChild(document.createElement("img"));
+let bookImage  =document.createElement("img");
+bookImage.id = bookImage;
+displayCard.appendChild(bookImage);
 
 bookImage.setAttribute("class", "bookImage");
     if(book.volumeInfo.imageLinks == undefined) {
@@ -215,18 +239,19 @@ bookImage.setAttribute("class", "bookImage");
          bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
 }
 
-let bookmark = $('<p id="bookmark" class="bookmark" ><i class="' + bookmarkClass + '"></i></p>'); 
+
+let bookmark = $('<p id="bmark" class="bmark" ><i class="' + bookmarkClass + '"></i></p>'); 
 let selectedBook = $("#" + book.id);    
 
     bookmarkLogo.addEventListener('click', function(event){
     
-     const divSavedBook= document.createElement('h2');
+     const divSavedBook= document.createElement('div');
       divSavedBook.id = divSavedBook+ book.id;
      divSavedBook.className = 'div';
       divSavedBook.innerHTML = " Ma Poche Liste";
-     document.querySelector("#myBooks").appendChild(divSavedBook);
+      displayCard.appendChild(divSavedBook);
 
-   ;
+     console.log("selectedBook =="+ selectedBook);
 
   event.target.innerHTML = ("JUST CLICKED")
 
@@ -236,19 +261,14 @@ let selectedBook = $("#" + book.id);
         bookmarkBin.id = bookmarkBin;
         divSavedBook.appendChild(bookmarkBin);
  
- 
+        
+  bookmarkBin.addEventListener('click', function(){
+    divSavedBook.remove();})
    
     let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved"));
-    bookSaved = bookSaved.filter(bookToFilter => bookToFilter.id != book.id)
+   // bookSaved = bookSaved.filter(bookToFilter => bookToFilter.id != book.id)
     sessionStorage.setItem("bookSaved", JSON.stringify(bookSaved));
    
-           
-  bookmarkBin.addEventListener('click', function(){
-    
-    divSavedBook.remove("selectedBook");
-
-
-  })
     console.log("booksaved= "+bookSaved);
 
  
@@ -256,16 +276,16 @@ let selectedBook = $("#" + book.id);
         alert("Vous ne pouvez ajouter deux fois le même livre");
     } else { 
    
-    divSavedBook.appendChild(divBookList);
+    displayCard.appendChild(divSavedBook);
         bookmark.children("i").removeClass();
         bookmark.children("i").addClass("fa fa-trash");
         displayList(book);
     }
-
 event.preventDefault();
 })
 
 }
+
  
 function displayList(book){
 

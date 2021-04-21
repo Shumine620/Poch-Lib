@@ -1,17 +1,20 @@
 body {
-  text-align: center;
+  text-align: left;
   margin: auto;
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size: 1em;
-  padding: 10px;
-  background-color: rgba(185, 255, 180, 0.25);
+  background-color: white;
 }
 
-img {
-  display: center;
-  float: align;
-  width: 150px;
-  border: 2mm ridge rgba(170, 150, 220, 0.6);
+#logo {
+  size: 1em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: center;
+  max-width: 200px;
+  max-height: 200px;
+  border: 1.5mm ridge rgba(170, 150, 220, 0.6);
 }
 
 h1 {
@@ -35,45 +38,82 @@ hr {
 }
 
 button {
-  font-size: 1em;
-  background-color: #94e0b1;
-  color: #fff;
-  padding: 1rem;
-  border: 1.8mm ridge rgba(170, 150, 220, 0.6);
-  margin-left: 1em;
-  margin-top: 1em;
+  background-color: #3bbea9;
+  color: white;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  width: 180px;
+  height: 60px;
+  font-size: 20px;
 }
 
-input {
-  margin-left: 1em;
-  margin-top: 1em;
-  margin-right: 1.5em;
-  display: inline;
-  justify-content: space-evenly;
-  flex-flow: wrap;
-  width: 20em;
-  height: 3em;
-  border-width: 0.2em;
-  border-color: black;
-  size: 0.8em;
+#addBookButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#searchButton {
+  color: white;
+  border: #cda5f1;
+  margin-top: 20px;
 }
 
 #cancelButton {
-  background-color: #e4454d;
-}
-
-myResults {
-  text-align: left;
-  border: #130d0d;
-  font-size: 2em;
-}
-
-#myResults > div.\#myResults.\>.div\:nth-child\(1\) {
-  text-align: left;
+  color: white;
+  font-size: 20px;
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #f74a4a;
 }
 
 #\[object\ HTMLButtonElement\] {
-  align-items: right;
+  align-content: right;
+}
+
+label {
+  width: 100%;
+  margin-top: 20px;
+  display: inline-block;
+  text-align: left;
+  font-size: 30px;
+}
+label input {
+  display: block;
+  flex-direction: row;
+  width: 100%;
+}
+
+input {
+  display: block;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+}
+
+#myResults {
+  margin: -3em 0 0 -3em;
+  border: thin solid #999;
+  padding: 1.5em;
+  text-align: left;
+  border-radius: #130d0d;
+  font-size: 2em;
+  float: left;
+  border: solid 2px black;
+  border-radius: 17px;
+  height: 300pt;
+  margin: 5px;
+  text-align: justify;
+  overflow: auto;
+  font: size 16px;
+}
+
+#displaycard {
+  border-radius: black;
+  background: black;
+  border: solid;
 }
 
 /*# sourceMappingURL=style.css.map */
