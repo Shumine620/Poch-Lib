@@ -113,7 +113,7 @@ function resultField(){
          myResults.id = 'myResults';
          myResults.className = 'h3';
          myResults.innerHTML = "Résultats de la recherche";
-        pochListDiv.style.display = "none";
+      pochListDiv.style.display = "none";
          bookResultDiv.before(myResults);
         
          const brline2 = document.createElement('br');
@@ -174,13 +174,14 @@ function searchBook(){
               
               for (var i=0; i<results.items.length; i++){ 
                 book = results.items[i];
+                console.log("boook = "+book)      
              displayBook(book, myResults,  "fas fa-bookmark" ); 
-           
+          
               }
            } else {
                noBookFound();
            }
-          }                   
+          }             
   }); 
   let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved"));
   if (bookSaved) {
@@ -188,32 +189,49 @@ function searchBook(){
   }
 
  }  
- 
+
 
 function displayBook(book, bookmarkClass){
-
+ 
 const myResults =document.getElementById("myResults");
 myResults.style.display = "flex";
-  
+
+let bookMap = new Map();
+
+bookMap.set(book.id, book);
+bookMap.forEach(book =>{
+
 const displayCard = document.createElement("div");
-displayCard.className= "dispayCard";
+displayCard.className= "displayCard";
 myResults.appendChild(displayCard)
+displayCard.setAttribute('book.id','displayCard')
+displayCard.style.border = "solid 2px ";
+displayCard.style.border= " border-radius: 50px 20px;"
 
  let bookmarkLogo = document.createElement("button");
-  bookmarkLogo.className= "fas fa-bookmark";
- bookmarkLogo.id = bookmarkLogo;
+ bookmarkLogo.className = "fas fa-bookmark";
+  bookmarkLogo.id = bookmarkLogo;
  displayCard.appendChild(bookmarkLogo);
-
-  bookTitle= $("bookTitle" ).add( "<p> Titre : " + book.volumeInfo.title + "</p>" ).appendTo( "#displayCard"); 
  
+ 
+ let bookTitle = document.createElement("p");
+ bookTitle.className = "p";
+ bookTitle.id = bookTitle;
+ bookTitle.innerHTML =  "Titre : " + book.volumeInfo.title ;
+ displayCard.appendChild(bookTitle);
+
   let bookId = document.createElement("p");
   bookId.setAttribute("class", "bookId");
   bookId.setAttribute("data", book.id );
   bookId.innerHTML = "ID: " + book.id;
   displayCard.appendChild(bookId);
+  
+  let bookAuthor = document.createElement("p");
+  bookAuthor.className = "p";
+  bookAuthor.id = bookAuthor;
+  bookAuthor.innerHTML =  " Auteur : " + book.volumeInfo.authors[0];
+ displayCard.appendChild(bookAuthor);
 
-  bookAuthor= $("bookAuthor" ).add( "<p> Auteur : " + book.volumeInfo.authors[0] + "</p>" ).appendTo("#displayCard");
- 
 //Checking description
 let description = document.createElement("p");
 description.setAttribute("class", "description");
@@ -229,6 +247,7 @@ if(book.volumeInfo.description == undefined) {
 description.setAttribute("data",book.volumeInfo.description)
 //Checking image
 let bookImage  =document.createElement("img");
+bookImage.className = "bookImage"
 bookImage.id = bookImage;
 displayCard.appendChild(bookImage);
 
@@ -240,7 +259,7 @@ bookImage.setAttribute("class", "bookImage");
 }
 
 
-let bookmark = $('<p id="bmark" class="bmark" ><i class="' + bookmarkClass + '"></i></p>'); 
+let bookmark = $('<p id="bookmark" class="bookmark" ><i class="' + bookmarkClass + '"></i></p>'); 
 let selectedBook = $("#" + book.id);    
 
     bookmarkLogo.addEventListener('click', function(event){
@@ -279,16 +298,18 @@ let selectedBook = $("#" + book.id);
     displayCard.appendChild(divSavedBook);
         bookmark.children("i").removeClass();
         bookmark.children("i").addClass("fa fa-trash");
+        divSavedBook.setAttribute('id', 'divSavedBook');
         displayList(book);
     }
 event.preventDefault();
 })
-
+}
+);
 }
 
  
 function displayList(book){
-
+const divSavedBook = document.getElementById('content');
       let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved")); 
       if (bookSaved) {
           bookSaved.push(book); 

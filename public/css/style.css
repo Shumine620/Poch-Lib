@@ -4,10 +4,10 @@ body {
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   font-size: 1em;
   background-color: white;
+  padding: 15px;
 }
 
 #logo {
-  size: 1em;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -17,14 +17,27 @@ body {
   border: 1.5mm ridge rgba(170, 150, 220, 0.6);
 }
 
+#bookImage {
+  border: 20%;
+  max-width: 200x;
+  max-height: 200px;
+  margin-left: 30%;
+}
+
+content {
+  border-top: 2px solid #e2e2e2;
+  margin-top: 10px;
+  color: black;
+}
+
 h1 {
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   text-align: center;
-  font-size: 2em;
+  font-size: 2.5em;
   padding: 20px;
-  margin: 2em;
-  background-color: rgba(183, 255, 200, 0.25);
-  border: 2mm ridge rgba(170, 150, 220, 0.6);
+  background-color: #e0d9d9;
+  border: rgba(164, 158, 180, 0.6);
+  border-bottom: #807c7c solid;
 }
 
 h2 {
@@ -69,10 +82,6 @@ button {
   background-color: #f74a4a;
 }
 
-#\[object\ HTMLButtonElement\] {
-  align-content: right;
-}
-
 label {
   width: 100%;
   margin-top: 20px;
@@ -80,40 +89,70 @@ label {
   text-align: left;
   font-size: 30px;
 }
-label input {
-  display: block;
-  flex-direction: row;
-  width: 100%;
-}
 
 input {
   display: block;
   flex-direction: row;
   width: 100%;
   height: 50px;
+  font-size: 30px;
+}
+
+#resultDiv {
+  text-align: center;
+  font-size: 25px bold;
 }
 
 #myResults {
-  margin: -3em 0 0 -3em;
-  border: thin solid #999;
-  padding: 1.5em;
+  flex-wrap: wrap;
+  justify-content: space-around, left;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+#myResults .displayCard {
+  border: black 3px solid;
+  flex-direction: column;
+  margin: 7px;
+  width: 80%;
+  height: 200pt;
   text-align: left;
-  border-radius: #130d0d;
-  font-size: 2em;
-  float: left;
-  border: solid 2px black;
-  border-radius: 17px;
-  height: 300pt;
-  margin: 5px;
-  text-align: justify;
+  font-size: 20px;
+  padding: 10px;
   overflow: auto;
-  font: size 16px;
+  border-radius: 5%;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 16px;
+  text-align: left;
+  background-color: #f1f1f1;
+  display: table;
+  flex-direction: column;
 }
 
-#displaycard {
-  border-radius: black;
-  background: black;
-  border: solid;
+.img {
+  text-align: center;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .displayCard {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+.text {
+  content: center;
+}
+
+.fas {
+  position: right;
+  right: 50px;
+  top: 10px;
+  border: none;
+  font-size: 25px;
+  width: 60px;
+  height: 40px;
 }
 
 /*# sourceMappingURL=style.css.map */
