@@ -1,10 +1,9 @@
 body {
-  text-align: left;
+  text-align: center;
+  position: relative;
   margin: auto;
-  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
-  font-size:1em;
-    background-color :white;
-    padding :15px;
+  background-color :white;
+  padding :10px;
 }
 #logo {
   display: block;
@@ -13,25 +12,22 @@ body {
   position:center;
   max-width: 200px;
   max-height: 200px;
-border: 1.5mm ridge rgba(170, 150, 220, 0.6);
+border: 1.2mm ridge rgba(170, 150, 220, 0.6);
 }
-#bookImage{
- border :20%;
-max-width: 200x;
-max-height: 200px;
-margin-left: 30%;}
-
 content{
+  text-align: center;
   border-top: 2px solid #e2e2e2;
   margin-top: 10px;
-  color: black ;
+ width: 100%;
 }
+
+
 
 h1{
 font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
 text-align: center;
 font-size:2.5em;
-padding: 20px;
+padding: 15px;
 background-color : rgb(224, 217, 217) ;
 border:  rgba(164, 158, 180, 0.6);
 border-bottom: rgb(128, 124, 124)solid;
@@ -41,16 +37,40 @@ h2{
   text-align: center;
   font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
   }
-  h3{
-    font-size: large;
-    text-align: center !important;
+.resultDiv{
+  font-size: 30px;
+  font-weight: bold;
+}
+  .h3{
+    display: flex;
+    flex-direction:row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    
+   
   }
+  .displayCard{
+    border: black 3px solid;
+    align-self:auto;
+  text-align: left;
+  width:  35%;
+  margin: 15px;
+     padding: 15px;
+    background-color: #f1f1f1;
+ // position: relative;
+    border-radius: 2%; 
+      }
+
  hr{
 margin-top: 15px;
 margin-bottom: 20px;
   }
 
- button{ background-color: rgb(59, 190, 169);
+ button{ 
+  background-color: rgb(59, 190, 169);
   color: white;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
@@ -64,11 +84,9 @@ margin-bottom: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-
   }
   #searchButton {
     color:white;
-    border: rgb(205, 165, 241);
     margin-top: 20px; 
 }
 
@@ -80,7 +98,7 @@ margin-bottom: 20px;
     background-color: rgb(247, 74, 74);
 }
 
-      label {
+     label {
           width: 100%;
           margin-top: 20px;
           display: inline-block;
@@ -89,72 +107,31 @@ margin-bottom: 20px;
       }
       input {
         display: block;
-        flex-direction: row;
         width: 100%;
         height: 50px;
         font-size: 30px;
     }
-    
-
-    #resultDiv{
-      text-align: center;
-      font-size: 25px bold;
-    }
-  #myResults{
-   flex-wrap:wrap;
-    justify-content: space-around, left;
-   max-width: 500px;
-   display: grid;
-   grid-gap: 1rem;
-   box-sizing: border-box;
-  
-  
-  
-  .displayCard{
-    display: inline-block;
-    border: black 3px solid;
-    flex-direction: column;
-    margin: 7px;
-    width: 80%;
-    height:200pt;
-    text-align: left;
-    font-size: 20px;
-    overflow: auto;
-    border-radius: 5%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    padding: 16px;
-    background-color: #f1f1f1;
-      }
+   
+ 
+.bookImage{
+ text-align: center !important;
+  position: relative;
+  border :20%;
+  max-width: 200x;
+  max-height: 200px;
+  margin-left: 40%;
 }
-#bookImage{
- float: center;
-
-}
-  /* Responsive columns - one column layout (vertical) on small screens */
-  @media screen and (max-width: 600px) {
-    .displayCard {
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-    }
-  }
-       
-              
+                    
     .fas{
-    position: right !important;;
-    right: 50px;
-    top: 10px;
-     border: none;
-    font-size: 25px;
+   float: right;
+    border: none;
+    font-size: 35px;
     width: 60px;
-     height: 40px;
+    height: 40px;
+    color :rgb(28, 133, 127);
+    background-color:( #f1f1f1);
               }
-              @media (min-width: 600px) {
-                .displayCard{ grid-template-columns: repeat(2, 1fr); }
-              }
-              
-              /* Screen larger than 900px? 3 columns */
-              @media (min-width: 900px) {
-                .displayCard{ grid-template-columns: repeat(3, 1fr); }
-              }  
+
+   .divDisplaySaved{
+     display: block;
+   }         

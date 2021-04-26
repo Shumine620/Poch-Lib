@@ -26,7 +26,7 @@ function researchFields(){
   const div_researchFields = document.createElement('div');
  document.body.appendChild(div_researchFields);
 
- const titre =document.createElement("label")
+const titre =document.createElement("label")
 titre.id="titre";
 titre.setAttribute("for", "inputTitleField");
 titre.textContent = "Titre du Livre";
@@ -103,17 +103,20 @@ function resultField(){
          const resultDiv = document.createElement('div');
          resultDiv.id = "resultDiv";
          document.body.appendChild(resultDiv);
+         resultDiv.innerHTML = "Résultats de la recherche";
+         resultDiv.className = "resultDiv"
          pochListDiv.before(resultDiv);
         
          const bookResultDiv = document.createElement('div');
          bookResultDiv.id = "resultsContent";
+         
+         bookResultDiv.className = "bookResultDiv";
          resultDiv.appendChild(bookResultDiv);
         
          const myResults = document.createElement('h3');
          myResults.id = 'myResults';
          myResults.className = 'h3';
-         myResults.innerHTML = "Résultats de la recherche";
-      pochListDiv.style.display = "none";
+         
          bookResultDiv.before(myResults);
         
          const brline2 = document.createElement('br');
@@ -183,10 +186,7 @@ function searchBook(){
            }
           }             
   }); 
-  let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved"));
-  if (bookSaved) {
-      bookSaved.forEach(book => displayBook(book, $("#myResults"),"fa fa-trash"));
-  }
+
 
  }  
 
@@ -194,7 +194,7 @@ function searchBook(){
 function displayBook(book, bookmarkClass){
  
 const myResults =document.getElementById("myResults");
-myResults.style.display = "flex";
+//myResults.style.display = "flex";
 
 let bookMap = new Map();
 
@@ -205,15 +205,12 @@ const displayCard = document.createElement("div");
 displayCard.className= "displayCard";
 myResults.appendChild(displayCard)
 displayCard.setAttribute('book.id','displayCard')
-displayCard.style.border = "solid 2px ";
-displayCard.style.border= " border-radius: 50px 20px;"
 
  let bookmarkLogo = document.createElement("button");
  bookmarkLogo.className = "fas fa-bookmark";
   bookmarkLogo.id = bookmarkLogo;
  displayCard.appendChild(bookmarkLogo);
- 
- 
+  
  let bookTitle = document.createElement("p");
  bookTitle.className = "p";
  bookTitle.id = bookTitle;
@@ -258,67 +255,61 @@ bookImage.setAttribute("class", "bookImage");
          bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
 }
 
-
-let bookmark = $('<p id="bookmark" class="bookmark" ><i class="' + bookmarkClass + '"></i></p>'); 
-let selectedBook = $("#" + book.id);    
-
     bookmarkLogo.addEventListener('click', function(event){
-    
-     const divSavedBook= document.createElement('div');
-      divSavedBook.id = divSavedBook+ book.id;
-     divSavedBook.className = 'div';
-      divSavedBook.innerHTML = " Ma Poche Liste";
-      displayCard.appendChild(divSavedBook);
 
-     console.log("selectedBook =="+ selectedBook);
+      const content = document.querySelector("#content > h2");
+      const divDisplaySaved= document.createElement('div');
+      content.appendChild(divDisplaySaved);
 
-  event.target.innerHTML = ("JUST CLICKED")
+    divDisplaySaved.id = divDisplaySaved + book.id;
+    divDisplaySaved.className = 'divDisplaySaved';
+   
 
- 
-     const bookmarkBin = document.createElement("button");
+    document.querySelector("#content > h2");
+
+       const bookmarkBin = document.createElement("button");
         bookmarkBin.className= "fas fa-trash-alt";
         bookmarkBin.id = bookmarkBin;
-        divSavedBook.appendChild(bookmarkBin);
+        divDisplaySaved.appendChild(bookmarkBin);
  
-        
-  bookmarkBin.addEventListener('click', function(){
-    divSavedBook.remove();})
-   
-    let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved"));
-   // bookSaved = bookSaved.filter(bookToFilter => bookToFilter.id != book.id)
-    sessionStorage.setItem("bookSaved", JSON.stringify(bookSaved));
-   
-    console.log("booksaved= "+bookSaved);
+ bookmarkBin.addEventListener('click', function(){
+    divDisplaySaved.remove();
+  });
+  let selectedBook = $("#" + book.id);  
+    event.preventDefault();
+    displayList(selectedBook);
 
- 
-    if (selectedBook=== book.id) { 
-        alert("Vous ne pouvez ajouter deux fois le même livre");
-    } else { 
-   
-    displayCard.appendChild(divSavedBook);
-        bookmark.children("i").removeClass();
-        bookmark.children("i").addClass("fa fa-trash");
-        divSavedBook.setAttribute('id', 'divSavedBook');
-        displayList(book);
+    divDisplaySaved.innerHTML = " Ma Poche Liste" + book + displayCard + selectedBook;
+
+    if(sessionStorage.getItem('selectedBook') !== null){
+      bookMap = JSON.parse(sessionStorage.getItem('selectedBook'));
+      bookMap.forEach((selectedBook, bookId) => {
+        if(selectedBook ["id"] == bookId){
+          alert("Vous ne pouvez pas ajouter deux fois le même livre");
+          return;  
+        }
+      })
+    };
     }
-event.preventDefault();
+)
+
 })
 }
-);
-}
 
- 
-function displayList(book){
-const divSavedBook = document.getElementById('content');
+function displayList(selectedBook){
+const divSavedBook = document.querySelector('#content > h2');
+  
       let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved")); 
       if (bookSaved) {
-          bookSaved.push(book); 
+          bookSaved.push(selectedBook); 
           sessionStorage.setItem("bookSaved", JSON.stringify(bookSaved)); 
       } else {
           sessionStorage.setItem("bookSaved", JSON.stringify([book])); 
       }
-      displayBook(book);
-     //console.log(bookSaved);
+      bookSaved;
+    // displayBook(book);
+     console.log("book Saved ==========" +bookSaved);
+     //divDisplaySaved.appendChild(divSavedBook);
   }
 
 window.addEventListener('DOMContentLoaded', init);
