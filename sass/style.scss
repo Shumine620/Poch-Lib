@@ -60,7 +60,6 @@ h2{
   margin: 15px;
      padding: 15px;
     background-color: #f1f1f1;
- // position: relative;
     border-radius: 2%; 
       }
 
@@ -133,5 +132,12 @@ margin-bottom: 20px;
               }
 
    .divDisplaySaved{
-     display: block;
+    border: black 3px solid;
+    align-self:auto;
+    text-align: left;
+    width:  35%;
+    margin: 15px;
+     padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 2%; 
    }         

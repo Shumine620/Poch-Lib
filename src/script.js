@@ -122,8 +122,7 @@ function resultField(){
          const brline2 = document.createElement('br');
           bookResultDiv.appendChild(brline2);
           brline2.id="breakline2";
-     
-
+ 
 }      
 
 //Cancel button clear the input fields
@@ -177,29 +176,20 @@ function searchBook(){
               
               for (var i=0; i<results.items.length; i++){ 
                 book = results.items[i];
-                console.log("boook = "+book)      
-             displayBook(book, myResults,  "fas fa-bookmark" ); 
-          
+             displayBook(book, myResults,  "fas fa-bookmark" );
               }
            } else {
                noBookFound();
            }
           }             
   }); 
-
-
  }  
 
-
-function displayBook(book, bookmarkClass){
- 
+ let bookMap = new Map();
+function displayBook(book){//, bookmarkClass
 const myResults =document.getElementById("myResults");
-//myResults.style.display = "flex";
-
-let bookMap = new Map();
 
 bookMap.set(book.id, book);
-bookMap.forEach(book =>{
 
 const displayCard = document.createElement("div");
 displayCard.className= "displayCard";
@@ -220,7 +210,7 @@ displayCard.setAttribute('book.id','displayCard')
   let bookId = document.createElement("p");
   bookId.setAttribute("class", "bookId");
   bookId.setAttribute("data", book.id );
-  bookId.innerHTML = "ID: " + book.id;
+  bookId.innerHTML = "ID : " + book.id;
   displayCard.appendChild(bookId);
   
   let bookAuthor = document.createElement("p");
@@ -237,9 +227,9 @@ description.id = description;
 displayCard.appendChild(description);
 
 if(book.volumeInfo.description == undefined) {
- description.innerHTML = "Description: Information manquante";
+ description.innerHTML = "Description : Information manquante";
 } else {
- description.innerHTML = "Description: " + book.volumeInfo.description.substr(0, 200) + "...";
+ description.innerHTML = "Description : " + book.volumeInfo.description.substr(0, 200) + "...";
 }
 description.setAttribute("data",book.volumeInfo.description)
 //Checking image
@@ -264,7 +254,6 @@ bookImage.setAttribute("class", "bookImage");
     divDisplaySaved.id = divDisplaySaved + book.id;
     divDisplaySaved.className = 'divDisplaySaved';
    
-
     document.querySelector("#content > h2");
 
        const bookmarkBin = document.createElement("button");
@@ -275,11 +264,13 @@ bookImage.setAttribute("class", "bookImage");
  bookmarkBin.addEventListener('click', function(){
     divDisplaySaved.remove();
   });
-  let selectedBook = $("#" + book.id);  
+  let selectedBook = bookId.innerHTML.substring(4); 
     event.preventDefault();
     displayList(selectedBook);
 
-    divDisplaySaved.innerHTML = " Ma Poche Liste" + book + displayCard + selectedBook;
+    divDisplaySaved.innerHTML = " Ma Poche Liste" +bookMap.get(selectedBook)+ bookmarkBin;
+
+console.log(bookMap.get(selectedBook))
 
     if(sessionStorage.getItem('selectedBook') !== null){
       bookMap = JSON.parse(sessionStorage.getItem('selectedBook'));
@@ -292,13 +283,12 @@ bookImage.setAttribute("class", "bookImage");
     };
     }
 )
-
-})
 }
-
+var bookSaved = new Map();
 function displayList(selectedBook){
+ 
 const divSavedBook = document.querySelector('#content > h2');
-  
+
       let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved")); 
       if (bookSaved) {
           bookSaved.push(selectedBook); 
@@ -307,9 +297,7 @@ const divSavedBook = document.querySelector('#content > h2');
           sessionStorage.setItem("bookSaved", JSON.stringify([book])); 
       }
       bookSaved;
-    // displayBook(book);
-     console.log("book Saved ==========" +bookSaved);
-     //divDisplaySaved.appendChild(divSavedBook);
+     
   }
 
 window.addEventListener('DOMContentLoaded', init);
