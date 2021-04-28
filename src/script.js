@@ -144,6 +144,7 @@ function noBookFound(){
   document.querySelector("#content").before(noBookFound);  
 }
 
+
 function searchBook(){
   var title = document.getElementById('inputTitleField').value;
   var author = document.getElementById('inputAuthorField').value;
@@ -186,10 +187,10 @@ function searchBook(){
  }  
 
  let bookMap = new Map();
-function displayBook(book){//, bookmarkClass
-const myResults =document.getElementById("myResults");
 
-bookMap.set(book.id, book);
+function displayBook(book, bookMap){
+
+const myResults =document.getElementById("myResults");
 
 const displayCard = document.createElement("div");
 displayCard.className= "displayCard";
@@ -198,7 +199,7 @@ displayCard.setAttribute('book.id','displayCard')
 
  let bookmarkLogo = document.createElement("button");
  bookmarkLogo.className = "fas fa-bookmark";
-  bookmarkLogo.id = bookmarkLogo;
+  
  displayCard.appendChild(bookmarkLogo);
   
  let bookTitle = document.createElement("p");
@@ -213,6 +214,9 @@ displayCard.setAttribute('book.id','displayCard')
   bookId.innerHTML = "ID : " + book.id;
   displayCard.appendChild(bookId);
   
+  bookmarkLogo.id = bookId.innerHTML.substring(4);
+
+
   let bookAuthor = document.createElement("p");
   bookAuthor.className = "p";
   bookAuthor.id = bookAuthor;
@@ -243,9 +247,14 @@ bookImage.setAttribute("class", "bookImage");
           bookImage.setAttribute("src", "./logo/missing.png");
     } else {
          bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
-}
 
-    bookmarkLogo.addEventListener('click', function(event){
+        bookmarkLogo.addEventListener('click', toPochList);
+        
+        return bookMap;
+}}
+
+
+function toPochList(bookmarkLogo){
 
       const content = document.querySelector("#content > h2");
       const divDisplaySaved= document.createElement('div');
@@ -253,51 +262,55 @@ bookImage.setAttribute("class", "bookImage");
 
     divDisplaySaved.id = divDisplaySaved + book.id;
     divDisplaySaved.className = 'divDisplaySaved';
+    divDisplaySaved.setAttribute('bookmarkLogo', 'bookMap')
    
     document.querySelector("#content > h2");
 
        const bookmarkBin = document.createElement("button");
         bookmarkBin.className= "fas fa-trash-alt";
-        bookmarkBin.id = bookmarkBin;
+        bookmarkBin.id = book.id;
         divDisplaySaved.appendChild(bookmarkBin);
  
  bookmarkBin.addEventListener('click', function(){
     divDisplaySaved.remove();
   });
-  let selectedBook = bookId.innerHTML.substring(4); 
-    event.preventDefault();
-    displayList(selectedBook);
 
-    divDisplaySaved.innerHTML = " Ma Poche Liste" +bookMap.get(selectedBook)+ bookmarkBin;
+    displayList(bookmarkLogo);
 
-console.log(bookMap.get(selectedBook))
+    divDisplaySaved.innerHTML = " Ma Poche Liste" + bookmarkLogo + "booooook = "+ book ;
+    
 
-    if(sessionStorage.getItem('selectedBook') !== null){
-      bookMap = JSON.parse(sessionStorage.getItem('selectedBook'));
-      bookMap.forEach((selectedBook, bookId) => {
-        if(selectedBook ["id"] == bookId){
+var bookSaved = new Map();
+
+    if(sessionStorage.getItem('bookmarkLogo') !== null){
+      bookMap = JSON.parse(sessionStorage.getItem('bookmarkLogo'));
+      bookMap.forEach((bookmarkLogo, bookId) => {
+        bookMap.set(book.id, book);
+        this.bookMap = { bookmarkLogo:[]};
+        if(bookmarkLogo ["id"]== bookId){
           alert("Vous ne pouvez pas ajouter deux fois le même livre");
           return;  
         }
+        bookSaved.push(bookmarkLogo);
       })
-    };
+    };console.log("bookMap = " + bookMap + "bookSaved" + bookSaved)
     }
-)
-}
-var bookSaved = new Map();
-function displayList(selectedBook){
+
+
+
+function displayList(bookmarkLogo){
  
 const divSavedBook = document.querySelector('#content > h2');
-
+divSavedBook.id = "divSavedBook";
+console.log("clicked book" +bookmarkLogo)
       let bookSaved = JSON.parse(sessionStorage.getItem("bookSaved")); 
       if (bookSaved) {
-          bookSaved.push(selectedBook); 
+          
           sessionStorage.setItem("bookSaved", JSON.stringify(bookSaved)); 
       } else {
           sessionStorage.setItem("bookSaved", JSON.stringify([book])); 
       }
-      bookSaved;
-     
+      
   }
 
 window.addEventListener('DOMContentLoaded', init);
