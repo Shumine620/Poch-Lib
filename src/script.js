@@ -17,6 +17,7 @@ function init(){
   
       $("hr").before(addBookButton);
       addBookButton.addEventListener('click',researchFields);   
+      //displaySaved();
 }
 
 
@@ -180,12 +181,11 @@ function searchBook(){
           }             
   }); 
  }  
-
+//Display Results of the search in "Résultats de la recherche"
  let bookMap = new Map();
 
-function displayBook(book, bookMap){
+function displayBook(book){
 var myResults =document.getElementById("myResults");
-
 
 var displayCard = document.createElement("div");
 displayCard.className= "displayCard";
@@ -240,25 +240,36 @@ bookImage.setAttribute("class", "bookImage");
          bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
 }
 
-   bookmarkLogo.addEventListener('click', function(event){
-     
-      console.log("card = "+ displayCard);
-      let selectedBook =bookId.innerHTML.substring(4)
+   bookmarkLogo.addEventListener('click', displayList, displaySaved);
+
+function displayList(){  
+
+  displaySaved();
+         let selectedBook =bookId.innerHTML.substring(4)
            bookmarkLogo.id = bookId;
+           
       var content = document.querySelector("#content > h2");
+      content.className ='content';
+
       var divDisplaySaved= document.createElement('div');
+      divDisplaySaved.id = divDisplaySaved;
       content.appendChild(divDisplaySaved);
       divDisplaySaved.className = 'divDisplaySaved';
+     
 
        let bookmarkBin = document.createElement("button");
         bookmarkBin.className= "fas fa-trash-alt";
         bookmarkBin.id = bookmarkBin;
         divDisplaySaved.appendChild(bookmarkBin);
 
+        bookmarkBin.addEventListener('click', function(){
+          divDisplaySaved.remove();
+          localStorage.removeItem(selectedBook);
+        });   
+
         let checkBook = false;
-        //Check if a book exist in my poch list
-        for(let i=0; i<sessionStorage.length; i++){
-          if(selectedBook == sessionStorage.key(i)){
+               for(let i=0; i<localStorage.length; i++){
+          if(selectedBook == localStorage.key(i)){
             checkBook = true;
           }
         };
@@ -268,14 +279,14 @@ bookImage.setAttribute("class", "bookImage");
           divDisplaySaved.style.display = "none";
         } else {
          
-          sessionStorage.setItem(selectedBook,JSON.stringify(bookId));
-          sessionStorage.getItem(bookId)
+          localStorage.setItem(selectedBook,JSON.stringify(bookId));
+          localStorage.getItem(bookId)
 
-          let bookTitle = document.createElement("p");
-          bookTitle.className = "p";
-          bookTitle.id = bookTitle;
-          bookTitle.innerHTML =  "Titre : " + book.volumeInfo.title ;
-          divDisplaySaved.appendChild(bookTitle);
+          let clickedTitle = document.createElement("p");
+          clickedTitle.className = "p";
+          clickedTitle.id = bookTitle;
+          clickedTitle.innerHTML =  "Titre : " + book.volumeInfo.title ;
+          divDisplaySaved.appendChild(clickedTitle);
          
            let clickedId = document.createElement("p");
            clickedId.setAttribute("class", "bookId");
@@ -283,47 +294,56 @@ bookImage.setAttribute("class", "bookImage");
            clickedId.innerHTML = "ID : " + book.id;
            divDisplaySaved.appendChild(clickedId);
            
-           let bookAuthor = document.createElement("p");
-           bookAuthor.className = "p";
-           bookAuthor.id = bookAuthor;
-           bookAuthor.innerHTML =  " Auteur : " + book.volumeInfo.authors[0];
-           divDisplaySaved.appendChild(bookAuthor);
+           let clickedAuthor = document.createElement("p");
+           clickedAuthor.className = "p";
+           clickedAuthor.id = bookAuthor;
+           clickedAuthor.innerHTML =  " Auteur : " + book.volumeInfo.authors[0];
+           divDisplaySaved.appendChild(clickedAuthor);
          
-           let description = document.createElement("p");
-         description.setAttribute("class", "description");
-         description.setAttribute("maxlength", "200");
-         description.id = description;
-         divDisplaySaved.appendChild(description);
+           let clickedDescription = document.createElement("p");
+           clickedDescription.setAttribute("class", "description");
+           clickedDescription.setAttribute("maxlength", "200");
+         clickedDescription.id = description;
+         divDisplaySaved.appendChild(clickedDescription);
          
-         if(book.volumeInfo.description == undefined) {
-          description.innerHTML = "Description : Information manquante";
+        if(book.volumeInfo.description == undefined) {
+          clickedDescription.innerHTML = "Description : Information manquante";
          } else {
-          description.innerHTML = "Description : " + book.volumeInfo.description.substr(0, 200) + "...";
+          clickedDescription.innerHTML = "Description : " + book.volumeInfo.description.substr(0, 200) + "...";
          }
-         description.setAttribute("data",book.volumeInfo.description)
+         clickedDescription.setAttribute("data",book.volumeInfo.description)
         
-         let bookImage  =document.createElement("img");
-         bookImage.className = "bookImage"
-         bookImage.id = bookImage;
-         divDisplaySaved.appendChild(bookImage);
-         bookImage.setAttribute("class", "bookImage");
+         let clickedImage  =document.createElement("img");
+         clickedImage.className = "bookImage"
+         clickedImage.id = bookImage;
+         divDisplaySaved.appendChild(clickedImage);
+         clickedImage.setAttribute("class", "bookImage");
              if(book.volumeInfo.imageLinks == undefined) {
-                   bookImage.setAttribute("src", "./logo/missing.png");
+                   clickedImage.setAttribute("src", "./logo/missing.png");
              } else {
-                  bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
+                  clickedImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
          }
+         //divDisplaySaved.innerHTML = localStorage.getItem(bookId+ clickedAuthor);
         }
-     
- bookmarkBin.addEventListener('click', function(){
-    divDisplaySaved.remove();
-    sessionStorage.removeItem(selectedBook)
-  });
-    event.stopPropagation();
+
       }
-)
-}
+      
+      let bookSaved  = JSON.parse(localStorage.getItem("clickedId"));
+      if(bookSaved!= null){
+        for(let i=0; i<bookSaved.length; i++){
+         fetch(clickedId + bookSaved[i])
+         divDisplaySaved.style.display = "block"
+         console.log(bookSaved + "booksaved")
+             }
+       
+          };
+        }
+      
+         
 
-
-
+ 
+    
+function displaySaved(){
+ }
 window.addEventListener('DOMContentLoaded', init);
 

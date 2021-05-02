@@ -10,76 +10,49 @@ body {
   margin-left: auto;
   margin-right: auto;
   position:center;
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 150px;
+  max-height: 150px;
 border: 1.2mm ridge rgba(170, 150, 220, 0.6);
-}
-content{
-  text-align: center;
-  border-top: 2px solid #e2e2e2;
-  margin-top: 10px;
- width: 100%;
 }
 
 
 h1{
 font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
 text-align: center;
-font-size:2.5em;
-padding: 15px;
+font-size:2em;
+padding: 10px;
 background-color : rgb(224, 217, 217) ;
 border:  rgba(164, 158, 180, 0.6);
 border-bottom: rgb(128, 124, 124)solid;
 }
 
-h2{
+h2, .h3, .resultDiv, .content{
+  
     display: flex;
     flex-direction:row;
     align-items: flex-start;
     flex-wrap: wrap;
     justify-content: center;
-    font-size: 20px;
+    text-align: center;
+    font-size: 25px;
     font-weight: bold;
   }
-.resultDiv{
-  font-size: 30px;
-  font-weight: bold;
-}
-  .h3 {
-    display: flex;
-    flex-direction:row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
-    
-   
-  }
-  .displayCard{
+
+  .displayCard, .divDisplaySaved{
     border: black 3px solid;
-    align-self:auto;
-  text-align: left;
-  width:  35%;
-  margin: 15px;
-     padding: 15px;
+   align-self:auto;
+    text-align: left;
+    width:  40%;
+    margin: 15px;
+    padding: 15px;
     background-color: #f1f1f1;
     border-radius: 2%; 
-      }
-      .divDisplaySaved{
-        border: black 3px solid;
-        align-self:auto;
-        text-align: left;
-        width:  35%;
-        margin: 15px;
-         padding: 15px;
-        background-color: #f1f1f1;
-        border-radius: 2%; 
-       }      
 
+      }
+      
  hr{
 margin-top: 15px;
-margin-bottom: 20px;
+margin-bottom: 15px;
   }
 
  button{ 
@@ -89,10 +62,19 @@ margin-bottom: 20px;
   padding-bottom: 0.3rem;
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  width: 180px;
-  height: 60px;
-  font-size: 20px;
+  width: 160px;
+  height: 50px;
+  font-size: 15px;
   }
+  .fas{
+    float: right;
+     border: none;
+     font-size: 35px;
+     width: 60px;
+     height: 40px;
+     color :rgb(28, 133, 127);
+     background-color:( #f1f1f1);
+               }
   #addBookButton{
     display: block;
     margin-left: auto;
@@ -105,7 +87,7 @@ margin-bottom: 20px;
 
 #cancelButton {
     color:white;
-    font-size: 20px;
+   
     display: inline-block;
     margin-top: 20px;
     background-color: rgb(247, 74, 74);
@@ -124,25 +106,44 @@ margin-bottom: 20px;
         height: 50px;
         font-size: 30px;
     }
-   
  
-.bookImage{
- text-align: center !important;
-  position: relative;
-  border :20%;
+#bookImage{
+ position: relative;
+  border :15%;
   max-width: 200x;
   max-height: 200px;
-  margin-left: 40%;
+  vertical-align: middle;
 }
-                    
-    .fas{
-   float: right;
-    border: none;
-    font-size: 35px;
-    width: 60px;
-    height: 40px;
-    color :rgb(28, 133, 127);
-    background-color:( #f1f1f1);
-              }
 
-              
+@media (min-width: 1200px) {
+  #myResults, #researchFields {
+    margin: auto;
+    width: 80%;
+  }
+  
+  .displayCard, .divDisplaySaved{
+    border: rgb(8, 8, 8) 1.5px solid;
+    
+    }
+  }
+
+@media screen and (min-width: 765px) and (max-width: 1024px) {
+      .bookImage {
+      text-align: center;
+      width: 100px;
+      height: 150px;
+    }
+
+  .bookTitle, .clickedTitle {
+    font-size: 15px;
+  }
+  .bookId, .clickedId {
+  
+        font-size: 12px;
+  }
+    
+  .displayCard, .divDisplaySaved {
+    line-height: 1rem;
+    padding-top: 5px;
+  }
+}
