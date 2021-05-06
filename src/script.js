@@ -1,349 +1,373 @@
-//Au Chargement de la page - Init page
-//Create the "Ajouter un livre" button
+class Book {
+  constructor(title, idISBN, savedBook, author, description,image) {
+    this.title = title;
+    this.idISBN = idISBN;
+    this.savedBook = savedBook;
+    this.author = author;
+    this.description = description;
+    this.image =image;
+  }
 
-function init(){
-  const div_myBooks = document.createElement('div');
-  div_myBooks.id = 'myBooks';
-  myBooks.appendChild(div_myBooks);
-
-  const hr = document.querySelector('hr');
-  document.body.appendChild(div_myBooks);
-
-  const addBookButton = document.createElement("button"); 
-      addBookButton.id = 'addBookButton';
-      addBookButton.className = 'button';
-      addBookButton.innerHTML= "Ajouter un Livre"; 
-      div_myBooks.appendChild(addBookButton);
-  
-      $("hr").before(addBookButton);
-      addBookButton.addEventListener('click',researchFields);   
-      //displaySaved();
+  displayCard(divDisplayCard) {
+    const resultDiv = document.createElement("div");
+    resultDiv.classList.add("card");
+    const bookDetail = document.createElement("div");
+    bookDetail.classList.add("card__info");
+    const bookImage = document.createElement("div");
+    bookImage.classList.add("card__img");
+    const bookmarkLogo = document.createElement("i");
+    bookmarkLogo.classList.add("fas");
+    bookmarkLogo.classList.add("fa-bookmark");
+    const bookmarkBin = document.createElement("i");
+    bookmarkBin.classList.add("fas");
+    bookmarkBin.classList.add("fa-trash");
+    bookmarkBin.style.display = "none";
+    const titleElt = document.createElement("h3");
+    titleElt.classList.add("card__info--title");
+    const idElt = document.createElement("h3");
+    const idHiddenElt = document.createElement("div");
+    idHiddenElt.style.display = "none";
+    const authorElt = document.createElement("h3");
+    const descriptionElt = document.createElement("h3");
+    const imageElt = document.createElement("img");
+    imageElt.src = this.image;
+    titleElt.innerHTML = "Titre : " + this.title;
+    idElt.innerHTML = "Id : " + this.idISBN;
+    idHiddenElt.innerHTML = this.savedBook;
+    authorElt.innerHTML = "Auteur : " + this.author;
+    descriptionElt.innerHTML = "Description : " + this.description;
+    const bookDetailChildren = [bookmarkLogo, bookmarkBin, titleElt, idElt, idHiddenElt, authorElt, descriptionElt];
+    for (const child of bookDetailChildren) {
+      bookDetail.appendChild(child);
+    }
+    bookImage.appendChild(imageElt);
+    resultDiv.appendChild(bookDetail);
+    resultDiv.appendChild(bookImage);
+    divDisplayCard.appendChild(resultDiv);
+  }
 }
 
+function insertBreakline(breakline) {
+  const div_myBooks = document.getElementById("myBooks");
+  const hr = document.getElementsByTagName('hr')[0];
+   div_myBooks.insertBefore( breakline,hr)
+}
 
-//Title of the book & Author fields + Search and cancel buttons
-function researchFields(){
+function inputFields(label, input) {
+  const field = document.createElement("div");
+  field.classList.add("form__field");
+  field.appendChild(label);
+  field.appendChild(input);
+  return field;
+}
 
-  const div_researchFields = document.createElement('div');
- document.body.appendChild(div_researchFields);
+function researchFields() {
+  const form = document.createElement("div");
+  form.classList.add("form");
+document.body.appendChild(form);
 
-const titre =document.createElement("label")
-titre.id="titre";
-titre.setAttribute("for", "inputTitleField");
-titre.textContent = "Titre du Livre";
-
-linebreak = document.createElement("br");
-titre.appendChild(linebreak);
+  const titre = document.createElement("label");
+  titre.setAttribute("for", "inputTitleField");
+  titre.id = "titre";
+  titre.textContent = "Titre du Livre";
 
   const inputTitleField = document.createElement("input");
-  inputTitleField.id ="inputTitleField";
   inputTitleField.setAttribute("type", "search");
+  inputTitleField.setAttribute("name", "intitle");
+  inputTitleField.setAttribute("id", "inputTitleField");
+inputTitleField.id = "inputTitleField"
+  form.appendChild(inputFields(titre, inputTitleField));
 
-  div_researchFields.appendChild(inputTitleField);
- 
-  $("#inputTitleField").before(titre);
-
-  const brline = document.createElement('br');
-  div_researchFields.appendChild(brline);
-  brline.id="breakline";
-
-  const auteur =document.createElement("label")
+  const auteur = document.createElement("label");
+  auteur.setAttribute("for", "inputAuthorField");
   auteur.id="auteur";
-  auteur.setAttribute("for", "authorInputField");
   auteur.textContent = "Auteur";
-  
-  linebreak2 = document.createElement("br");
-  auteur.appendChild(linebreak2);
 
- const inputAuthorField = document.createElement("input");
- inputAuthorField.id="inputAuthorField";
- inputAuthorField.setAttribute("type", "search");
+  const inputAuthorField = document.createElement("input");
+  inputAuthorField.setAttribute("type", "search");
+  inputAuthorField.setAttribute("name", "inauthor");
+  inputAuthorField.setAttribute("id", "author");
+inputAuthorField.id = 'inputAuthorField';
+  form.appendChild(inputFields(auteur, inputAuthorField));
 
- div_researchFields.appendChild(inputAuthorField);
- inputAuthorField.style.display = 'inline-block';
+  const div_researchButtons = document.createElement('div');
+  div_researchButtons.id = div_researchButtons;
+  div_researchButtons.className = "div_researchButtons" 
+  form.appendChild(div_researchButtons);
 
- $("#inputAuthorField").before(auteur);
- 
-const div_researchButtons = document.createElement('div');
- div_researchFields.appendChild(div_researchButtons);
 
- const searchButton = document.createElement("button");
-  searchButton.id = 'searchButton';
-  searchButton.className = 'button';
-  searchButton.innerHTML = "Rechercher ";
+  const searchButton = document.createElement("button");
+  searchButton.innerHTML = "Rechercher";
+  searchButton.className = 'searchButton';
   div_researchButtons.appendChild(searchButton);
-    
-  linebreak3 = document.createElement("br");
+
+  searchButton.onclick = (event) => {
+    event.preventDefault();
+    searchBook();
+     };
   
-  const cancelButton = document.createElement("button");
-   cancelButton.id = 'cancelButton';
-  cancelButton.className = 'button';
-  cancelButton.innerHTML = "Annuler ";
+ let linebreak = document.createElement("br");
+
+   const cancelButton = document.createElement("button");
+
+  cancelButton.innerHTML = "Annuler";
+  cancelButton.className = 'cancelButton';
+  cancelButton.onclick = (event) => {
+    event.preventDefault();
+    cancelSearch(form);
+   };
+
   div_researchButtons.appendChild(cancelButton);
  
-  cancelButton.before(linebreak3);
+  cancelButton.before(linebreak);
 
-  $("hr").before(div_researchFields);
- 
- cancelButton.addEventListener('click',clearInputFields,resultField);
-  searchButton.addEventListener('click',resultField);
-  searchButton.addEventListener('click',searchBook);
-  searchButton.addEventListener('submit',searchBook);
-
-  inputTitleField.addEventListener('submit', (event) => {
-      title = event.target.value;});
-  inputAuthorField.addEventListener('submit', (event) => {
-      author = event.target.value;
-        });
-  }
-     
-function resultField(){
- var pochListDiv = document.getElementById("content");
-         var resultDiv = document.createElement('div');
-         resultDiv.id = "resultDiv";
-         document.body.appendChild(resultDiv);
-         resultDiv.innerHTML = "Résultats de la recherche";
-         resultDiv.className = "resultDiv"
-         pochListDiv.before(resultDiv);
-        
-         var bookResultDiv = document.createElement('div');
-         bookResultDiv.id = "resultsContent";
-         
-         bookResultDiv.className = "bookResultDiv";
-         resultDiv.appendChild(bookResultDiv);
-        
-         var myResults = document.createElement('h3');
-         myResults.id = 'myResults';
-         myResults.className = 'h3';
-         
-         bookResultDiv.before(myResults);
-        
-         const brline2 = document.createElement('br');
-          bookResultDiv.appendChild(brline2);
-          brline2.id="breakline2";
- 
-}      
-
-//Cancel button clear the input fields
-function clearInputFields(){
- 
-  document.getElementById('researchFields');
-  document.querySelector("#myBooks > div:nth-child(4)").remove(); 
-  document.getElementById('resultField');
-  document.querySelector("#resultDiv").remove();
-  document.getElementById("content").style.display="block";
+  form.appendChild(inputFields(auteur, inputAuthorField));
+   form.appendChild(searchButton);
+ form.appendChild(cancelButton);
+ form.appendChild(linebreak);
+ insertBreakline(form);
+ form.style.display = "none";
 }
+
+function displayForm() {
+  const button = document.getElementById("addBookButton");
+  const form = document.getElementsByClassName("form")[0];
+  const title = document.getElementById("inputTitleField");
+  if (button !== null && form !== null) {
+    button.style.display = "none";
+    form.style.display = "block";
+ 
+  }
+}
+
+function addButton() {
+  const addBookButton = document.createElement("button");
+  addBookButton.innerHTML = "Ajouter un livre";
+  addBookButton.className = 'button';
+  addBookButton.id = 'addBookButton';
+  insertBreakline(addBookButton);
+  addBookButton.onclick = displayForm;
+}
+
+
+function resultField() {
+  const divResults = document.createElement("div");
+  divResults.id = "divResults";
+  divResults.classList.add("res-container");
+  divResults.style.display = "none";
+ const resultsLine = document.createElement("hr");
+  const resultsTitle = document.createElement("h2");
+  resultsTitle.innerHTML = "Résultats de recherche";
+   const booksCard = document.createElement("div");
+  booksCard.classList.add("booksCard");
+  booksCard.id = "booksCard";
+ divResults.appendChild(resultsLine);
+  divResults.appendChild(resultsTitle);
+   divResults.appendChild(booksCard);
+  insertBreakline(divResults);
+}
+
+function pochListDiv() {
+  const divPochList = document.getElementById("content");
+  const myResults = document.createElement("div");
+  myResults.classList.add("booksCard");
+  myResults.id = "myResults";
+  divPochList.appendChild(myResults);
+}
+
+function onload() {
+  researchFields();
+  addButton();
+  resultField();
+  pochListDiv();
+  displayList();
+}
+
+window.addEventListener("load", onload);
+
+function bookMarks() {
+  const icons = document.querySelectorAll("#myResults i");
+  for (const icon of icons) {
+    if (icon.className === "fas fa-bookmark" && icon.style.display !== "none") {
+      icon.style.display = "none";
+    }
+    if (icon.className === "fas fa-trash" && icon.style.display === "none") {
+      icon.style.display = "block";
+    }
+  }
+}
+
+function bookmarkLogoClick(selectedBook) {
+  for (let i = 0; i < selectedBook.length; i++) {
+    const bookmarkLogo = document.getElementsByClassName("fa-bookmark")[i];
+    bookmarkLogo.onclick = () => {
+      saveBook(selectedBook[i], selectedBook[i].savedBook);
+    };
+  }
+}
+
+function bookmarkBinDel(savedBook, divDisplayCard) {
+  const resultDiv = divDisplayCard.lastChild;
+  const bookmarkBin = resultDiv.getElementsByTagName("i")[1];
+  bookmarkBin.addEventListener("click", () => {
+    removeBook(savedBook);
+  });
+}
+
+function isInSession(savedBook) {
+  if (localStorage.getItem(savedBook) !== null) {
+    alert("Vous ne pouvez ajouter deux fois le même livre !");
+    return true;
+  }
+  return false;
+}
+
+function saveBook(book, savedBook) {
+  const div_myBooks = document.getElementById("myResults");
+  if (!isInSession(savedBook)) {
+    localStorage.setItem(book.savedBook, JSON.stringify(book));
+    book.displayCard(div_myBooks);
+    bookMarks();
+    bookmarkBinDel(savedBook, div_myBooks);
+  }
+}
+
+function removeBook(savedBook) {
+  const clickedBook = document.querySelectorAll("#myResults > resultDiv");
+  clickedBook.forEach((elt) => {
+    const clickedId = elt.querySelector(".card__info > div");
+    if (clickedId.innerHTML === savedBook) {
+      elt.parentNode.removeChild(elt);
+      localStorage.removeItem(savedBook);
+    }
+  });
+}
+
+function displayResults(data, list) {
+  let book, title, id, idHidden, author, description, image;
+  let selectedBook = [];
+  let index = 0;
+  for (book of data.items) {
+    id = null;
+    title = book.volumeInfo.title;
+    idHidden = book.id;
+    if (book.volumeInfo.industryIdentifiers) {
+      for (let i = 0; i < book.volumeInfo.industryIdentifiers.length; i++) {
+        if (book.volumeInfo.industryIdentifiers[i].type === "ISBN_13") {
+          id = book.volumeInfo.industryIdentifiers[i].identifier;
+        }
+      }
+      if (!id) {
+        id = book.volumeInfo.industryIdentifiers[0].identifier;
+      }
+    } else {
+      id = "Id = Information manquante";
+    }
+    author = book.volumeInfo.authors ? book.volumeInfo.authors[0] :"Auteur = Information manquante";
+
+    if (book.volumeInfo.description) {
+      description = book.volumeInfo.description;
+      if (description.length > 200) {
+        description = description.slice(0, 200);
+        description = description.substring(0, description.lastIndexOf(" "));
+      }
+    } else {
+      description = "Description : Information manquante";
+    }
+
+    image = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "./logo/missing.png";
+    selectedBook[index] = new Book(title, id, idHidden, author, description, image);
+    selectedBook[index].displayCard(list);
+    index++;
+  }
+  bookmarkLogoClick(selectedBook);
+}
+
+function displayList() {
+  const div_myBooks = document.getElementById("myResults");
+  const keys = Object.keys(localStorage);
+  for (const key of keys) {
+    const sessionObject = JSON.parse(localStorage.getItem(key));
+    const book = new Book(sessionObject.title, sessionObject.idISBN, sessionObject.savedBook, sessionObject.author, sessionObject.description, sessionObject.image);
+    book.displayCard(div_myBooks);
+    bookmarkBinDel(sessionObject.savedBook, div_myBooks);
+  }
+  bookMarks();
+}
+
 function noBookFound(){
   const noBookFound = document.createElement("p");
   noBookFound.id= "noBookFound";
   noBookFound.setAttribute("class", "noBookFound");
   noBookFound.innerHTML = "Aucun livre n’a été trouvé";
+  noBookFound.style.color = "green";
   document.querySelector("#myResults").appendChild(noBookFound);
   document.querySelector("#content").before(noBookFound);  
 }
 
-
-function searchBook(){
-  var title = document.getElementById('inputTitleField').value;
+function searchBook() {
+  const resultsContainer = document.getElementById("divResults");
+  const bookList = document.getElementById("booksCard");
+   var title = document.getElementById('inputTitleField').value;
   var author = document.getElementById('inputAuthorField').value;
-  
+
   let emptyFieldAlert = document.createElement("div");
-  document.querySelector("#myBooks > div:nth-child(4)").appendChild(emptyFieldAlert);
- if (title == ''|| author == '') {
-      const emptyFieldAlertT = document.createElement("h3");
-      emptyFieldAlert.id = "emptyFieldAlert";
-      emptyFieldAlert.className = 'h3';
-      emptyFieldAlert.innerHTML = "Merci de renseigner les champs de recherche.";
-      emptyFieldAlert.style.color = "red";
-      emptyFieldAlert.appendChild(emptyFieldAlertT);
-          }
+  document.querySelector("#myBooks > div.form").appendChild(emptyFieldAlert);
 
+  if (title === "" && author === "") {
+    const emptyFieldAlertT = document.createElement("h3");
+    emptyFieldAlert.id = "emptyFieldAlert";
+    emptyFieldAlert.className = 'h3';
+    emptyFieldAlert.innerHTML = "Merci de renseigner les champs de recherche.";
+    emptyFieldAlert.style.color = "red";
+    emptyFieldAlert.appendChild(emptyFieldAlertT);
+    booksCard.style.display = "none";
+  }
   const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
-
-  var xhr = new XMLHttpRequest();
+  while (bookList.childNodes.length > 0) {
+    cleanOutputList(bookList);
+  }
+ 
+    var xhr = new XMLHttpRequest();
   var request = 'https://www.googleapis.com/books/v1/volumes?q=' + title + '+inauthor:'+ author +"&key="+ apiK;
   xhr.open('GET', request);
   xhr.send();
   xhr.addEventListener('readystatechange', function() {
 
     if (xhr.readyState === XMLHttpRequest.DONE   && xhr.status == 200) {//Holds and return the status of the XMLHttpRequest
-        
-          let results = JSON.parse(xhr.responseText);//Returns the response data as a string
+            let results = JSON.parse(xhr.responseText);//Returns the response data as a string
 
-              if(results.totalItems){
-                  for (var i=0; i<results.items.length; i++){ 
-                book = results.items[i];
-             displayBook(book, myResults,  "fas fa-bookmark" );
-              }
-           } else {
-               noBookFound();
-           }
-          }             
-  }); 
- }  
-//Display Results of the search in "Résultats de la recherche"
- let bookMap = new Map();
-
-function displayBook(book){
-var myResults =document.getElementById("myResults");
-
-var displayCard = document.createElement("div");
-displayCard.className= "displayCard";
-myResults.appendChild(displayCard)
-displayCard.setAttribute('book.id','displayCard')
-
- let bookmarkLogo = document.createElement("button");
- bookmarkLogo.className = "fas fa-bookmark";
-  bookmarkLogo.id = bookmarkLogo;
- displayCard.appendChild(bookmarkLogo);
-  
- let bookTitle = document.createElement("p");
- bookTitle.className = "p";
- bookTitle.id = bookTitle;
- bookTitle.innerHTML =  "Titre : " + book.volumeInfo.title ;
- displayCard.appendChild(bookTitle);
-
-  let bookId = document.createElement("p");
-  bookId.setAttribute("class", "bookId");
-  bookId.setAttribute("data", book.id );
-  bookId.innerHTML = "ID : " + book.id;
-  displayCard.appendChild(bookId);
-  
-  let bookAuthor = document.createElement("p");
-  bookAuthor.className = "p";
-  bookAuthor.id = bookAuthor;
-  bookAuthor.innerHTML =  " Auteur : " + book.volumeInfo.authors[0];
- displayCard.appendChild(bookAuthor);
-
-//Checking description
-let description = document.createElement("p");
-description.setAttribute("class", "description");
-description.setAttribute("maxlength", "200");
-description.id = description;
-displayCard.appendChild(description);
-
-if(book.volumeInfo.description == undefined) {
- description.innerHTML = "Description : Information manquante";
-} else {
- description.innerHTML = "Description : " + book.volumeInfo.description.substr(0, 200) + "...";
-}
-description.setAttribute("data",book.volumeInfo.description)
-//Checking image
-let bookImage  =document.createElement("img");
-bookImage.className = "bookImage"
-bookImage.id = bookImage;
-displayCard.appendChild(bookImage);
-bookImage.setAttribute("class", "bookImage");
-    if(book.volumeInfo.imageLinks == undefined) {
-          bookImage.setAttribute("src", "./logo/missing.png");
-    } else {
-         bookImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
-}
-
-   bookmarkLogo.addEventListener('click', displayList, displaySaved);
-
-function displayList(){  
-
-  displaySaved();
-         let selectedBook =bookId.innerHTML.substring(4)
-           bookmarkLogo.id = bookId;
+          if (results.totalItems === 0) {
+            noBookFound();
            
-      var content = document.querySelector("#content > h2");
-      content.className ='content';
-
-      var divDisplaySaved= document.createElement('div');
-      divDisplaySaved.id = divDisplaySaved;
-      content.appendChild(divDisplaySaved);
-      divDisplaySaved.className = 'divDisplaySaved';
-     
-
-       let bookmarkBin = document.createElement("button");
-        bookmarkBin.className= "fas fa-trash-alt";
-        bookmarkBin.id = bookmarkBin;
-        divDisplaySaved.appendChild(bookmarkBin);
-
-        bookmarkBin.addEventListener('click', function(){
-          divDisplaySaved.remove();
-          localStorage.removeItem(selectedBook);
-        });   
-
-        let checkBook = false;
-               for(let i=0; i<localStorage.length; i++){
-          if(selectedBook == localStorage.key(i)){
-            checkBook = true;
+          } else {
+            displayResults(results, bookList);
+            resultsContainer.style.display = "block";
           }
-        };
-        
-        if(checkBook) {
-          alert("Vous ne pouvez ajouter deux fois le même livre");
-          divDisplaySaved.style.display = "none";
-        } else {
-         
-          localStorage.setItem(selectedBook,JSON.stringify(bookId));
-          localStorage.getItem(bookId)
-
-          let clickedTitle = document.createElement("p");
-          clickedTitle.className = "p";
-          clickedTitle.id = bookTitle;
-          clickedTitle.innerHTML =  "Titre : " + book.volumeInfo.title ;
-          divDisplaySaved.appendChild(clickedTitle);
-         
-           let clickedId = document.createElement("p");
-           clickedId.setAttribute("class", "bookId");
-           clickedId.setAttribute("data", book.id );
-           clickedId.innerHTML = "ID : " + book.id;
-           divDisplaySaved.appendChild(clickedId);
-           
-           let clickedAuthor = document.createElement("p");
-           clickedAuthor.className = "p";
-           clickedAuthor.id = bookAuthor;
-           clickedAuthor.innerHTML =  " Auteur : " + book.volumeInfo.authors[0];
-           divDisplaySaved.appendChild(clickedAuthor);
-         
-           let clickedDescription = document.createElement("p");
-           clickedDescription.setAttribute("class", "description");
-           clickedDescription.setAttribute("maxlength", "200");
-         clickedDescription.id = description;
-         divDisplaySaved.appendChild(clickedDescription);
-         
-        if(book.volumeInfo.description == undefined) {
-          clickedDescription.innerHTML = "Description : Information manquante";
-         } else {
-          clickedDescription.innerHTML = "Description : " + book.volumeInfo.description.substr(0, 200) + "...";
-         }
-         clickedDescription.setAttribute("data",book.volumeInfo.description)
-        
-         let clickedImage  =document.createElement("img");
-         clickedImage.className = "bookImage"
-         clickedImage.id = bookImage;
-         divDisplaySaved.appendChild(clickedImage);
-         clickedImage.setAttribute("class", "bookImage");
-             if(book.volumeInfo.imageLinks == undefined) {
-                   clickedImage.setAttribute("src", "./logo/missing.png");
-             } else {
-                  clickedImage.setAttribute("src", book.volumeInfo.imageLinks.thumbnail);
-         }
-         //divDisplaySaved.innerHTML = localStorage.getItem(bookId+ clickedAuthor);
         }
+      });
+    }
+  
+function cleanOutputList(divDisplayCard) {
+  while (divDisplayCard.lastChild) {
+    divDisplayCard.removeChild(divDisplayCard.lastChild);
+  }
+}
 
-      }
-      
-      let bookSaved  = JSON.parse(localStorage.getItem("clickedId"));
-      if(bookSaved!= null){
-        for(let i=0; i<bookSaved.length; i++){
-         fetch(clickedId + bookSaved[i])
-         divDisplaySaved.style.display = "block"
-         console.log(bookSaved + "booksaved")
-             }
-       
-          };
-        }
-      
-         
-
- 
-    
-function displaySaved(){
- }
-window.addEventListener('DOMContentLoaded', init);
-
+function cancelSearch(form) {
+  const divDisplayCard = document.getElementById("booksCard");
+  const button = document.getElementById("addBookButton");
+  const resContainer = document.getElementById("divResults");
+  const inputs = form.querySelectorAll("input");
+  if (divDisplayCard) {
+    cleanOutputList(divDisplayCard);
+  }
+  form.style.display = "none";
+  button.style.display = "block";
+  resContainer.style.display = "none";
+  for (const input of inputs) {
+    if (input) {
+      input.value = "";
+    }
+  }
+}

@@ -4,6 +4,8 @@ body {
   margin: auto;
   background-color :white;
   padding :10px;
+  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
+  
 }
 #logo {
   display: block;
@@ -16,17 +18,16 @@ border: 1.2mm ridge rgba(170, 150, 220, 0.6);
 }
 
 
-h1{
-font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
+h1, title{
 text-align: center;
-font-size:2em;
-padding: 10px;
+font-size:30px;
+padding: 20px;
 background-color : rgb(224, 217, 217) ;
 border:  rgba(164, 158, 180, 0.6);
 border-bottom: rgb(128, 124, 124)solid;
 }
 
-h2, .h3, .resultDiv, .content{
+h2, .h3, .resultDiv, .content,.booksCard{
   
     display: flex;
     flex-direction:row;
@@ -34,14 +35,15 @@ h2, .h3, .resultDiv, .content{
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
   }
-
-  .displayCard, .divDisplaySaved{
+  
+   .card{
     border: black 3px solid;
    align-self:auto;
     text-align: left;
+    font-size: smaller;
     width:  40%;
     margin: 15px;
     padding: 15px;
@@ -79,40 +81,46 @@ margin-bottom: 15px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+
   }
-  #searchButton {
+  .searchButton {
+    display: inline-block;
     color:white;
     margin-top: 20px; 
+    margin-left: 30px;
+margin-bottom: 20px;
 }
 
-#cancelButton {
+.cancelButton {
     color:white;
-   
     display: inline-block;
     margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
     background-color: rgb(247, 74, 74);
 }
 
-     label {
+label {
           width: 100%;
           margin-top: 20px;
           display: inline-block;
           text-align: left;
-          font-size: 30px;
+          font-size:25px;
       }
-      input {
+input {
         display: block;
         width: 100%;
-        height: 50px;
-        font-size: 30px;
+        height: 40px;
+        font-size: 20px;
     }
  
-#bookImage{
- position: relative;
+image, .bookImage{
+  margin-top: auto;
+  overflow: hidden;
   border :15%;
   max-width: 200x;
   max-height: 200px;
-  vertical-align: middle;
+  
 }
 
 @media (min-width: 1200px) {
@@ -121,29 +129,48 @@ margin-bottom: 15px;
     width: 80%;
   }
   
-  .displayCard, .divDisplaySaved{
+  .displayCard{
     border: rgb(8, 8, 8) 1.5px solid;
+    font: size 18px;
     
     }
   }
 
 @media screen and (min-width: 765px) and (max-width: 1024px) {
-      .bookImage {
-      text-align: center;
-      width: 100px;
-      height: 150px;
-    }
-
-  .bookTitle, .clickedTitle {
-    font-size: 15px;
-  }
-  .bookId, .clickedId {
-  
-        font-size: 12px;
-  }
-    
-  .displayCard, .divDisplaySaved {
+  .displayCard{
+    font-size: smaller;
     line-height: 1rem;
     padding-top: 5px;
   }
+      #image {
+        height: auto;
+        width: 128px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+  .title {
+    font-size: 15px;
+  }
+  .bookId, .clickedId {
+          font-size: 14px;
+        font-weight: lighter;
+       font-style: italic;
+  }
+    
+ 
 }
+
+.input {
+  font-size: inherit;
+ 
+  width: 100%;
+  box-sizing: border-box;
+ 
+    width: 75%;
+ 
+    width: 50%;}
+
+    
+    
