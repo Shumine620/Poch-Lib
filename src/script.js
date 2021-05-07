@@ -9,8 +9,8 @@ class Book {
   }
 
   displayCard(divDisplayCard) {
-    const resultDiv = document.createElement("div");
-    resultDiv.classList.add("card");
+    const bookdiv = document.createElement("bookdiv");
+    bookdiv.classList.add("card");
     const bookDetail = document.createElement("div");
     bookDetail.classList.add("card__info");
     const bookImage = document.createElement("div");
@@ -22,28 +22,29 @@ class Book {
     bookmarkBin.classList.add("fas");
     bookmarkBin.classList.add("fa-trash");
     bookmarkBin.style.display = "none";
-    const titleElt = document.createElement("h3");
-    titleElt.classList.add("card__info--title");
-    const idElt = document.createElement("h3");
+    const elementTitle = document.createElement("h3");
+    elementTitle.classList.add("card__info--title");
+    const elementId = document.createElement("h3");
+    elementId.id = "elementId";
     const idHiddenElt = document.createElement("div");
     idHiddenElt.style.display = "none";
-    const authorElt = document.createElement("h3");
-    const descriptionElt = document.createElement("h3");
-    const imageElt = document.createElement("img");
-    imageElt.src = this.image;
-    titleElt.innerHTML = "Titre : " + this.title;
-    idElt.innerHTML = "Id : " + this.idISBN;
+    const elementAuthor = document.createElement("h3");
+    const elementDescription = document.createElement("h3");
+    const elementImage = document.createElement("img");
+    elementImage.src = this.image;
+    elementTitle.innerHTML = "Titre : " + this.title;
+    elementId.innerHTML = "Id : " + this.idISBN;
     idHiddenElt.innerHTML = this.savedBook;
-    authorElt.innerHTML = "Auteur : " + this.author;
-    descriptionElt.innerHTML = "Description : " + this.description;
-    const bookDetailChildren = [bookmarkLogo, bookmarkBin, titleElt, idElt, idHiddenElt, authorElt, descriptionElt];
+    elementAuthor.innerHTML = "Auteur : " + this.author;
+    elementDescription.innerHTML = "Description : " + this.description;
+    const bookDetailChildren = [bookmarkLogo, bookmarkBin, elementTitle, elementId, idHiddenElt, elementAuthor, elementDescription];
     for (const child of bookDetailChildren) {
       bookDetail.appendChild(child);
     }
-    bookImage.appendChild(imageElt);
-    resultDiv.appendChild(bookDetail);
-    resultDiv.appendChild(bookImage);
-    divDisplayCard.appendChild(resultDiv);
+    bookImage.appendChild(elementImage);
+    bookdiv.appendChild(bookDetail);
+    bookdiv.appendChild(bookImage);
+    divDisplayCard.appendChild(bookdiv);
   }
 }
 
@@ -64,7 +65,7 @@ function inputFields(label, input) {
 function researchFields() {
   const form = document.createElement("div");
   form.classList.add("form");
-document.body.appendChild(form);
+  document.body.appendChild(form);
 
   const titre = document.createElement("label");
   titre.setAttribute("for", "inputTitleField");
@@ -75,7 +76,7 @@ document.body.appendChild(form);
   inputTitleField.setAttribute("type", "search");
   inputTitleField.setAttribute("name", "intitle");
   inputTitleField.setAttribute("id", "inputTitleField");
-inputTitleField.id = "inputTitleField"
+  inputTitleField.id = "inputTitleField"
   form.appendChild(inputFields(titre, inputTitleField));
 
   const auteur = document.createElement("label");
@@ -87,7 +88,7 @@ inputTitleField.id = "inputTitleField"
   inputAuthorField.setAttribute("type", "search");
   inputAuthorField.setAttribute("name", "inauthor");
   inputAuthorField.setAttribute("id", "author");
-inputAuthorField.id = 'inputAuthorField';
+  inputAuthorField.id = 'inputAuthorField';
   form.appendChild(inputFields(auteur, inputAuthorField));
 
   const div_researchButtons = document.createElement('div');
@@ -105,8 +106,9 @@ inputAuthorField.id = 'inputAuthorField';
     event.preventDefault();
     searchBook();
      };
-  
- let linebreak = document.createElement("br");
+
+   let linebreak = document.createElement("br");
+linebreak.appendChild(form);
 
    const cancelButton = document.createElement("button");
 
@@ -118,26 +120,25 @@ inputAuthorField.id = 'inputAuthorField';
    };
 
   div_researchButtons.appendChild(cancelButton);
- 
-  cancelButton.before(linebreak);
+ linebreak.before(cancelButton);
+linebreak.after(searchButton);
 
   form.appendChild(inputFields(auteur, inputAuthorField));
    form.appendChild(searchButton);
  form.appendChild(cancelButton);
- form.appendChild(linebreak);
+
  insertBreakline(form);
  form.style.display = "none";
+ 
 }
 
 function displayForm() {
   const button = document.getElementById("addBookButton");
   const form = document.getElementsByClassName("form")[0];
-  const title = document.getElementById("inputTitleField");
-  if (button !== null && form !== null) {
+   if (button !== null && form !== null) {
     button.style.display = "none";
     form.style.display = "block";
- 
-  }
+   }
 }
 
 function addButton() {
@@ -207,8 +208,8 @@ function bookmarkLogoClick(selectedBook) {
 }
 
 function bookmarkBinDel(savedBook, divDisplayCard) {
-  const resultDiv = divDisplayCard.lastChild;
-  const bookmarkBin = resultDiv.getElementsByTagName("i")[1];
+  const bookdiv = divDisplayCard.lastChild;
+  const bookmarkBin = bookdiv.getElementsByTagName("i")[1];
   bookmarkBin.addEventListener("click", () => {
     removeBook(savedBook);
   });
@@ -233,11 +234,11 @@ function saveBook(book, savedBook) {
 }
 
 function removeBook(savedBook) {
-  const clickedBook = document.querySelectorAll("#myResults > resultDiv");
-  clickedBook.forEach((elt) => {
-    const clickedId = elt.querySelector(".card__info > div");
+  const clickedBook = document.querySelectorAll("#myResults > bookdiv");
+  clickedBook.forEach((book) => {
+    const clickedId = book.querySelector(".card__info > div");
     if (clickedId.innerHTML === savedBook) {
-      elt.parentNode.removeChild(elt);
+      book.parentNode.removeChild(book);
       localStorage.removeItem(savedBook);
     }
   });
@@ -261,9 +262,9 @@ function displayResults(data, list) {
         id = book.volumeInfo.industryIdentifiers[0].identifier;
       }
     } else {
-      id = "Id = Information manquante";
+      id = "Information manquante";
     }
-    author = book.volumeInfo.authors ? book.volumeInfo.authors[0] :"Auteur = Information manquante";
+    author = book.volumeInfo.authors ? book.volumeInfo.authors[0] : "Information manquante";
 
     if (book.volumeInfo.description) {
       description = book.volumeInfo.description;
@@ -272,7 +273,7 @@ function displayResults(data, list) {
         description = description.substring(0, description.lastIndexOf(" "));
       }
     } else {
-      description = "Description : Information manquante";
+      description = " Information manquante";
     }
 
     image = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "./logo/missing.png";
@@ -325,7 +326,7 @@ function searchBook() {
   }
   const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
   while (bookList.childNodes.length > 0) {
-    cleanOutputList(bookList);
+    clearBookList(bookList);
   }
  
     var xhr = new XMLHttpRequest();
@@ -343,12 +344,13 @@ function searchBook() {
           } else {
             displayResults(results, bookList);
             resultsContainer.style.display = "block";
+            emptyFieldAlert.style.display = "none";
           }
         }
       });
     }
   
-function cleanOutputList(divDisplayCard) {
+function clearBookList(divDisplayCard) {
   while (divDisplayCard.lastChild) {
     divDisplayCard.removeChild(divDisplayCard.lastChild);
   }
@@ -360,7 +362,7 @@ function cancelSearch(form) {
   const resContainer = document.getElementById("divResults");
   const inputs = form.querySelectorAll("input");
   if (divDisplayCard) {
-    cleanOutputList(divDisplayCard);
+    clearBookList(divDisplayCard);
   }
   form.style.display = "none";
   button.style.display = "block";

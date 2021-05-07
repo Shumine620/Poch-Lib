@@ -1,52 +1,23 @@
 body {
   text-align: center;
-  position: relative;
   margin: auto;
   background-color: white;
   padding: 10px;
-  font-family: Heebo, Nunito_Sans, Helvetica, sans-serif;
+  font-family: Heebo, Nunito_Sans;
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
 }
 
-#logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  position: center;
-  max-width: 150px;
-  max-height: 150px;
-  border: 1.2mm ridge rgba(170, 150, 220, 0.6);
+#myBooks {
+  padding: 2%;
 }
 
-h1, title {
+.title {
   text-align: center;
-  font-size: 30px;
-  padding: 20px;
+  padding: 15px;
   background-color: #e0d9d9;
   border: rgba(164, 158, 180, 0.6);
   border-bottom: #807c7c solid;
-}
-
-h2, .h3, .resultDiv, .content, .booksCard {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.card {
-  border: black 3px solid;
-  align-self: auto;
-  text-align: left;
-  font-size: smaller;
-  width: 40%;
-  margin: 15px;
-  padding: 15px;
-  background-color: #f1f1f1;
-  border-radius: 2%;
 }
 
 hr {
@@ -54,26 +25,117 @@ hr {
   margin-bottom: 15px;
 }
 
+.booksCard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  font-size: 20px;
+  padding-top: 5px;
+  font-size: smaller;
+}
+@media (max-width: 767px) {
+  .booksCard {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    text-align: left;
+    padding: 20px;
+  }
+}
+@media (min-width: 1600px) {
+  .booksCard {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    text-align: left;
+    padding: 20px;
+    width: 400px;
+  }
+}
+.booksCard .card {
+  display: flex;
+  flex-wrap: wrap;
+  border: black 3px solid;
+  align-self: auto;
+  text-align: left;
+  width: 40%;
+  height: 450px;
+  margin: 15px;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 2%;
+  overflow-x: auto;
+}
+@media (max-width: 767px) {
+  .booksCard .card {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    text-align: left;
+    padding: 20px;
+    width: fit-content;
+  }
+}
+.booksCard .elementTitle {
+  font-weight: bold;
+}
+.booksCard #card_info {
+  font-weight: normal;
+}
+
+@media screen and (min-width: 767px) {
+  .card {
+    display: inline-block;
+    width: 60%;
+  }
+
+  #elementId {
+    font-style: italic;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1599) {
+  #elementId {
+    font-style: italic;
+  }
+
+  .card {
+    display: inline-block;
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1600px) {
+  #elementId {
+    font-style: italic;
+  }
+
+  .card {
+    display: inline-block;
+    width: 40%;
+  }
+}
 button {
   background-color: #3bbea9;
-  color: white;
+  color: #fff;
+  display: flex;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-right: 0.8rem;
   padding-left: 0.8rem;
   width: 160px;
-  height: 50px;
+  height: 30px;
   font-size: 15px;
 }
 
 .fas {
   float: right;
   border: none;
-  font-size: 35px;
+  font-size: 20px;
   width: 60px;
   height: 40px;
-  color: #1c857f;
-  background-color: #f1f1f1;
+  color: #3bbea9;
 }
 
 #addBookButton {
@@ -83,20 +145,54 @@ button {
 }
 
 .searchButton {
-  display: inline-block;
-  color: white;
+  color: #fff;
   margin-top: 20px;
   margin-left: 30px;
   margin-bottom: 20px;
 }
 
 .cancelButton {
-  color: white;
-  display: inline-block;
+  color: #fff;
   margin-top: 20px;
   margin-left: 30px;
   margin-bottom: 20px;
   background-color: #f74a4a;
+}
+
+.card__img {
+  height: auto;
+  width: 130px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  text-align: center;
+}
+
+@media screen and (min-width: 767px) {
+  #searchButton, #cancelButton {
+    width: 150px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1599) {
+  #searchButton, #cancelButton {
+    width: 200px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  #searchButton, #cancelButton {
+    max-width: 250x;
+    max-height: 200px;
+  }
+}
+#logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: center;
+  max-width: 150px;
+  max-height: 150px;
+  border: 1.2mm ridge;
 }
 
 label {
@@ -114,56 +210,30 @@ input {
   font-size: 20px;
 }
 
-image, .bookImage {
-  margin-top: auto;
-  overflow: hidden;
-  border: 15%;
-  max-width: 200x;
-  max-height: 200px;
-}
-
-@media (min-width: 1200px) {
-  #myResults, #researchFields {
-    margin: auto;
-    width: 80%;
-  }
-
-  .displayCard {
-    border: #080808 1.5px solid;
-    font: size 18px;
-  }
-}
-@media screen and (min-width: 765px) and (max-width: 1024px) {
-  .displayCard {
-    font-size: smaller;
-    line-height: 1rem;
-    padding-top: 5px;
-  }
-
-  #image {
-    height: auto;
-    width: 128px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .title {
-    font-size: 15px;
-  }
-
-  .bookId, .clickedId {
+@media screen and (min-width: 767px) {
+  #elementId {
     font-size: 14px;
     font-weight: lighter;
     font-style: italic;
   }
+
+  .input {
+    font-size: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    width: 75%;
+    width: 50%;
+  }
 }
-.input {
-  font-size: inherit;
-  width: 100%;
-  box-sizing: border-box;
-  width: 75%;
-  width: 50%;
+.displayCard, .resultDiv {
+  column-count: 3;
+}
+
+.card {
+  width: 60%;
+}
+.card #elementId {
+  font-weight: lighter;
 }
 
 /*# sourceMappingURL=style.css.map */
