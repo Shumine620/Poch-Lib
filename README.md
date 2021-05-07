@@ -19,8 +19,8 @@ Technologies :
 
 Installation:
 
-.Clone the repository
-.Download the complere file
-.Open the file index.html in your brower to launch the app
+    Clone the repository from https://github.com/Shumine620/Poch-Lib
+    Download the complere file
+    Open the file index.html in your brower to launch the app
 
 Author : Séverine Rodin - Great'App
