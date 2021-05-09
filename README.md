@@ -27,4 +27,4 @@ Installation:
 *	Open the file index.html in your browser to launch the app
 
 Author : Séverine Rodin - Great'App
-==
+===
