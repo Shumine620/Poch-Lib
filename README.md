@@ -1,4 +1,5 @@
-#Poch'Lib for La Plume Enchantée
+# Poch'Lib for La Plume Enchantée
+==
 
 Front-end of the application to look-for and retreive books.
 
@@ -27,4 +28,4 @@ Installation:
 *	Open the file index.html in your browser to launch the app
 
 Author : Séverine Rodin - Great'App
-===
+-
