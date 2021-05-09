@@ -1,6 +1,7 @@
 body {
   text-align: center;
   margin: auto;
+  width: auto;
   background-color: white;
   padding: 10px;
   font-family: Heebo, Nunito_Sans;
@@ -83,13 +84,20 @@ hr {
   font-weight: bold;
 }
 .booksCard #card_info {
+  width: fit-content;
+  display: inline-block;
   font-weight: normal;
 }
 
-@media screen and (min-width: 767px) {
+@media only screen and (min-width: 767px) {
+  .booksCard {
+    column-count: 1;
+  }
+
   .card {
     display: inline-block;
-    width: 60%;
+    flex-direction: row;
+    width: fit-content;
   }
 
   #elementId {
@@ -101,19 +109,28 @@ hr {
     font-style: italic;
   }
 
+  .booksCard {
+    column-count: 2;
+  }
+
   .card {
     display: inline-block;
     width: 50%;
   }
 }
 @media screen and (min-width: 1600px) {
+  .booksCard {
+    column-count: 2;
+  }
+
   #elementId {
     font-style: italic;
+    font-weight: lighter;
   }
 
   .card {
     display: inline-block;
-    width: 40%;
+    width: 500px;
   }
 }
 button {
@@ -161,12 +178,12 @@ button {
 
 .card__img {
   height: auto;
-  width: 130px;
+  width: auto;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 15px;
+  margin: auto;
+  margin-top: 20px;
   text-align: center;
+  padding-bottom: 5px;
 }
 
 @media screen and (min-width: 767px) {
@@ -183,6 +200,10 @@ button {
   #searchButton, #cancelButton {
     max-width: 250x;
     max-height: 200px;
+  }
+
+  .card__img {
+    text-align: center;
   }
 }
 #logo {
@@ -224,16 +245,6 @@ input {
     width: 75%;
     width: 50%;
   }
-}
-.displayCard, .resultDiv {
-  column-count: 3;
-}
-
-.card {
-  width: 60%;
-}
-.card #elementId {
-  font-weight: lighter;
 }
 
 /*# sourceMappingURL=style.css.map */

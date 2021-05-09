@@ -302,6 +302,10 @@ function noBookFound(){
   noBookFound.setAttribute("class", "noBookFound");
   noBookFound.innerHTML = "Aucun livre n’a été trouvé";
   noBookFound.style.color = "green";
+  noBookFound.style.fontSize = "x-large";
+  noBookFound.style.fontSize = "x-large";
+  noBookFound.style.fontWeight = "bolder";
+  noBookFound.style.fontFamily = "Lucida Console";
   document.querySelector("#myResults").appendChild(noBookFound);
   document.querySelector("#content").before(noBookFound);  
 }
@@ -322,7 +326,8 @@ function searchBook() {
     emptyFieldAlert.innerHTML = "Merci de renseigner les champs de recherche.";
     emptyFieldAlert.style.color = "red";
     emptyFieldAlert.appendChild(emptyFieldAlertT);
-    booksCard.style.display = "none";
+    bookList.style.display = "none";
+
   }
   const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
   while (bookList.childNodes.length > 0) {
@@ -330,21 +335,21 @@ function searchBook() {
   }
  
     var xhr = new XMLHttpRequest();
-  var request = 'https://www.googleapis.com/books/v1/volumes?q=' + title + '+inauthor:'+ author +"&key="+ apiK;
+  var request = 'https://www.googleapis.com/books/v1/volumes?q=' +'intitle'+ title + '+inauthor:'+ author +"&key="+ apiK;
   xhr.open('GET', request);
   xhr.send();
   xhr.addEventListener('readystatechange', function() {
 
-    if (xhr.readyState === XMLHttpRequest.DONE   && xhr.status == 200) {//Holds and return the status of the XMLHttpRequest
-            let results = JSON.parse(xhr.responseText);//Returns the response data as a string
+    if (xhr.readyState === XMLHttpRequest.DONE   && xhr.status == 200) {
+            let results = JSON.parse(xhr.responseText);
 
           if (results.totalItems === 0) {
             noBookFound();
            
           } else {
             displayResults(results, bookList);
-            resultsContainer.style.display = "block";
-            emptyFieldAlert.style.display = "none";
+           resultsContainer.style.display = "block";
+                   
           }
         }
       });
@@ -367,6 +372,7 @@ function cancelSearch(form) {
   form.style.display = "none";
   button.style.display = "block";
   resContainer.style.display = "none";
+ document.getElementById("emptyFieldAlert").style.display = "none";
   for (const input of inputs) {
     if (input) {
       input.value = "";

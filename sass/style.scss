@@ -13,7 +13,6 @@
 border: 1.2mm ridge ;
 }
 
-
 label {
           width: 100%;
           margin-top: 20px;
@@ -31,33 +30,19 @@ input {
  
 @media screen and (min-width: 767px)  {
  
-      
-
- 
   #elementId{
-          font-size: 14px;
-        font-weight: lighter;
-       font-style: italic;
+      font-size: 14px;
+      font-weight: lighter;
+      font-style: italic;
   }
   .input {
     font-size: inherit;
-     width: 100%;
+    width: 100%;
     box-sizing: border-box;
-      width: 75%;
-       width: 50%;}  
- 
-}
-.displayCard, .resultDiv{
-  column-count: 3;
-}
-.card {
-    width: 60%;
-  #elementId{
-    font-weight: lighter;
-  }
-}
-@media screen and (min-width: 1000px) {
-  
-}
+    width: 75%;
+    width: 50%;
+  }  
+ }
+
 
     
