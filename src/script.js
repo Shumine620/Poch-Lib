@@ -216,7 +216,7 @@ function bookmarkBinDel(savedBook, divDisplayCard) {
 }
 
 function isInSession(savedBook) {
-  if (localStorage.getItem(savedBook) !== null) {
+  if (sessionStorage.getItem(savedBook) !== null) {
     alert("Vous ne pouvez ajouter deux fois le même livre !");
     return true;
   }
@@ -226,7 +226,7 @@ function isInSession(savedBook) {
 function saveBook(book, savedBook) {
   const div_myBooks = document.getElementById("myResults");
   if (!isInSession(savedBook)) {
-    localStorage.setItem(book.savedBook, JSON.stringify(book));
+    sessionStorage.setItem(book.savedBook, JSON.stringify(book));
     book.displayCard(div_myBooks);
     bookMarks();
     bookmarkBinDel(savedBook, div_myBooks);
@@ -239,7 +239,7 @@ function removeBook(savedBook) {
     const clickedId = book.querySelector(".card__info > div");
     if (clickedId.innerHTML === savedBook) {
       book.parentNode.removeChild(book);
-      localStorage.removeItem(savedBook);
+      sessionStorage.removeItem(savedBook);
     }
   });
 }
@@ -286,9 +286,9 @@ function displayResults(data, list) {
 
 function displayList() {
   const div_myBooks = document.getElementById("myResults");
-  const keys = Object.keys(localStorage);
+  const keys = Object.keys(sessionStorage);
   for (const key of keys) {
-    const sessionObject = JSON.parse(localStorage.getItem(key));
+    const sessionObject = JSON.parse(sessionStorage.getItem(key));
     const book = new Book(sessionObject.title, sessionObject.idISBN, sessionObject.savedBook, sessionObject.author, sessionObject.description, sessionObject.image);
     book.displayCard(div_myBooks);
     bookmarkBinDel(sessionObject.savedBook, div_myBooks);
