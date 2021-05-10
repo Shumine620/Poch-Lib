@@ -296,19 +296,6 @@ function displayList() {
   bookMarks();
 }
 
-function noBookFound(){
-  const noBookFound = document.createElement("p");
-  noBookFound.id= "noBookFound";
-  noBookFound.setAttribute("class", "noBookFound");
-  noBookFound.innerHTML = "Aucun livre n’a été trouvé";
-  noBookFound.style.color = "green";
-  noBookFound.style.fontSize = "x-large";
-  noBookFound.style.fontSize = "x-large";
-  noBookFound.style.fontWeight = "bolder";
-  noBookFound.style.fontFamily = "Lucida Console";
-  document.querySelector("#myResults").appendChild(noBookFound);
-  document.querySelector("#content").before(noBookFound);  
-}
 
 function searchBook() {
   const resultsContainer = document.getElementById("divResults");
@@ -316,18 +303,10 @@ function searchBook() {
    var title = document.getElementById('inputTitleField').value;
   var author = document.getElementById('inputAuthorField').value;
 
-  let emptyFieldAlert = document.createElement("div");
-  document.querySelector("#myBooks > div.form").appendChild(emptyFieldAlert);
-
   if (title === "" && author === "") {
-    const emptyFieldAlertT = document.createElement("h3");
-    emptyFieldAlert.id = "emptyFieldAlert";
-    emptyFieldAlert.className = 'h3';
-    emptyFieldAlert.innerHTML = "Merci de renseigner les champs de recherche.";
-    emptyFieldAlert.style.color = "red";
-    emptyFieldAlert.appendChild(emptyFieldAlertT);
-    bookList.style.display = "none";
-
+    resultsContainer.style.display = "none";
+    alert("Merci de renseigner les champs de recherche.")
+    
   }
   const apiK= "AIzaSyCe3Dpkc52IYszEgfE9uOq5OShSCvY_jDY";
   while (bookList.childNodes.length > 0) {
@@ -335,21 +314,21 @@ function searchBook() {
   }
  
     var xhr = new XMLHttpRequest();
-  var request = 'https://www.googleapis.com/books/v1/volumes?q=' +'intitle'+ title + '+inauthor:'+ author +"&key="+ apiK;
+  var request = 'https://www.googleapis.com/books/v1/volumes?q='+ title + '+inauthor:'+ author +"&key="+ apiK;
   xhr.open('GET', request);
   xhr.send();
   xhr.addEventListener('readystatechange', function() {
 
     if (xhr.readyState === XMLHttpRequest.DONE   && xhr.status == 200) {
             let results = JSON.parse(xhr.responseText);
-
-          if (results.totalItems === 0) {
-            noBookFound();
            
+          if (results.totalItems === 0) {
+            alert("Aucun livre n’a été trouvé");
+            resultsContainer.style.display = "none";
+                    
           } else {
             displayResults(results, bookList);
-           resultsContainer.style.display = "block";
-                   
+            resultsContainer.style.display = "block";          
           }
         }
       });
@@ -372,7 +351,7 @@ function cancelSearch(form) {
   form.style.display = "none";
   button.style.display = "block";
   resContainer.style.display = "none";
- document.getElementById("emptyFieldAlert").style.display = "none";
+
   for (const input of inputs) {
     if (input) {
       input.value = "";
