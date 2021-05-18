@@ -1,0 +1,66 @@
+
+ button{ 
+    background-color:$greenColor ;
+    color:$primaryColor;
+    @include button-params();
+    }
+   
+ .fas{
+      
+	float:right;
+	border: none;
+    font-size:20px;
+    width: 60px;
+    height: 40px;
+    color :$greenColor;
+        }
+        .fas:hover{
+            color : rgb(97, 97, 233)
+        }
+
+    #addBookButton{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;  
+    }
+.searchButton {
+   
+    @include button-search-params();
+  }
+  
+  .cancelButton {
+    @include button-search-params();
+    background-color: $cancelButtonColor;
+  }
+
+    .card__img{
+       
+        height: auto;
+        margin: auto;
+        margin-top: 50px;
+        text-align: center;
+        padding-bottom: 5px;
+   
+  }
+  @media screen and (min-width: 767px) {
+    #searchButton, #cancelButton{
+        width: 150px;
+    }
+    
+}
+@media screen and(min-width: 768px) and (max-width:1599){
+    #searchButton, #cancelButton{
+        width: 200px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    #searchButton, #cancelButton{
+        max-width: 250x;
+        max-height: 200px; 
+    }
+    .card__img{
+        text-align: center;
+        
+    }
+}
